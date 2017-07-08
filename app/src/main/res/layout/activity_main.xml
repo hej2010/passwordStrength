@@ -19,7 +19,7 @@
         android:text="Msg to JavaScript"
         />
     <WebView
-        android:id="@+id/mybrowser"
+        android:id="@+id/webview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         />
