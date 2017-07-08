@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="utf-8">
-        <title>HSIMP Demo</title>
+        <title>How secure is my password</title>
 
         <style>
             body {
@@ -19,12 +19,8 @@
                 color: #888;
                 border: 1px solid #bbb;
                 border-radius: 3px;
-                padding: 0.25em 10px;
                 line-height: 1.5em;
-            }
-
-            label::after {
-                content: ":";
+                width: 100%;
             }
 
             div {
@@ -32,8 +28,8 @@
             }
 
             .hsimp-time {
-                display: inline;
-                margin-left: 10px;
+                display: block;
+                text-align: center;
             }
 
             .hsimp-checks li {
@@ -41,21 +37,21 @@
             }
 
             .hsimp-checks h2 {
-                font-size: 0.8em;
+                font-size: 1em;
                 margin-bottom: 0;
             }
 
             .hsimp-checks p {
                 margin-top: 0;
-                font-size: 0.7em;
+                font-size: 1em;
             }
         </style>
 
         <link rel="stylesheet" href="hsimp.css">
     </head>
     <body>
-        <label>Password</label>
         <input id="password-box" type="password" />
+        <br>
         <div id="password-time" class="hsimp-time"></div>
         <ul id="password-checks" class="hsimp-checks"></ul>
 

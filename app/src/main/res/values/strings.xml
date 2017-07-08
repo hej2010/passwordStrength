@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">passwordstrength</string>
-    <string name="hello">Hello</string>
+    <string name="app_name">How Secure Is My Password</string>
+    <string name="title">How secure is my password</string>
 </resources>
