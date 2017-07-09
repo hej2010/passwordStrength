@@ -6,7 +6,7 @@
 
     <string name="about">About</string>
     <string name="info">Information</string>
-    <string name="about_message" translatable="false">2017 © Rikard Teodorsson\nVersion 1.0.0</string>
+    <string name="about_message" translatable="false">2017 © Rikard Teodorsson\nVersion 1.0</string>
 
     <string name="info_message">The data and information in this app is purely for educational purposes and does not reflect real world situations. \n\n
     The time-to-crack is based on 10 billion calculations per second.\n\n

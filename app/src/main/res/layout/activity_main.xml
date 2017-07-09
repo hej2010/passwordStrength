@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:background="@color/colorPrimaryDark">
 
     <TextView
         android:id="@+id/textView2"
@@ -23,7 +23,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView2"
         android:text="@string/input"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
 
     <WebView
         android:id="@+id/webview"
@@ -57,7 +58,8 @@
             android:layout_weight="1"
             android:onClick="onButtonClicked"
             android:text="@string/about"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/txtInfo"
@@ -68,7 +70,8 @@
             android:layout_weight="1"
             android:onClick="onButtonClicked"
             android:text="@string/info"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <View
