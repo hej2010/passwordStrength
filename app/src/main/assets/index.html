@@ -23,12 +23,16 @@
                 width: 100%;
             }
 
+            .text {
+                display: inline;
+            }
+
             div {
                 margin-bottom: 10px;
             }
 
             .hsimp-time {
-                display: block;
+                display: inline;
                 text-align: center;
             }
 
@@ -52,7 +56,8 @@
     <body>
         <input id="password-box" type="password" />
         <br>
-        <div id="password-time" class="hsimp-time"></div>
+        <center><p class="text">Time to crack: </p>
+        <div id="password-time" class="hsimp-time"></div></center>
         <ul id="password-checks" class="hsimp-checks"></ul>
 
         <script src="hsimp.min.js"></script>
