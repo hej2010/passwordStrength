@@ -41,4 +41,15 @@
         android:onClick="onButtonClicked"
         android:text="@string/about"
         android:textAlignment="center" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:visibility="visible"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
+
 </RelativeLayout>

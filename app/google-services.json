@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "881932483825",
+    "firebase_url": "https://how-secure-is-my-passwor-716a3.firebaseio.com",
+    "project_id": "how-secure-is-my-passwor-716a3",
+    "storage_bucket": "how-secure-is-my-passwor-716a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881932483825:android:15f2c81d42e9c72b",
+        "android_client_info": {
+          "package_name": "se.swecookie.passwordstrength"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881932483825-m5325ptdq7vt6rco8jnl6gtnujd3g3ik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5YEf2RG9IkyWNfHv4XaeuwRgeSQANu9A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

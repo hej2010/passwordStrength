@@ -8,12 +8,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 public class MainActivity extends AppCompatActivity {
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // ca-app-pub-2831297200743176~9657558447
+        MobileAds.initialize(this, "ca-app-pub-2831297200743176~9657558447");
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         loadWebView();
     }
