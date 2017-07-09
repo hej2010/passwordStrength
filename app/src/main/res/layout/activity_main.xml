@@ -28,19 +28,21 @@
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtAbout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView" />
+        android:layout_below="@+id/textView"
+        android:layout_above="@+id/txtAbout" />
 
     <TextView
         android:id="@+id/txtAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:onClick="onButtonClicked"
         android:text="@string/about"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_above="@+id/adView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
@@ -50,6 +52,8 @@
         android:layout_gravity="bottom"
         android:visibility="visible"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+    <!--TEST: ca-app-pub-3940256099942544/6300978111-->
+    <!--EGNA: ca-app-pub-2831297200743176/2134291646-->
 
 </RelativeLayout>
