@@ -32,20 +32,52 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
-        android:layout_above="@+id/txtAbout" />
+        android:layout_above="@+id/view2" />
 
-    <TextView
-        android:id="@+id/txtAbout"
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:background="@color/colorAccent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/lLButtons"/>
+
+    <LinearLayout
+        android:id="@+id/lLButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onButtonClicked"
-        android:text="@string/about"
-        android:textAlignment="center"
+        android:orientation="horizontal"
+        android:layout_above="@+id/view">
+
+        <TextView
+            android:id="@+id/txtAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:onClick="onButtonClicked"
+            android:text="@string/about"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/txtInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:onClick="onButtonClicked"
+            android:text="@string/info"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:background="@color/colorAccent"
+        android:layout_height="1dp"
         android:layout_above="@+id/adView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="2dp"/>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"

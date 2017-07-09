@@ -3,6 +3,9 @@ package se.swecookie.passwordstrength;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +17,7 @@ import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AdView mAdView;
+    private AlertDialog privacyBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
         // ca-app-pub-2831297200743176~9657558447
         MobileAds.initialize(this, "ca-app-pub-2831297200743176~9657558447");
 
-        mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         loadWebView();
+
+        if (!checkIfAcceptedPP()) {
+            displayPrivacyPolicyNotification();
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -43,13 +50,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.txtAbout:
                 showAbout();
                 break;
+            case R.id.txtInfo:
+                showInfo();
+                break;
         }
     }
 
-    private void showAbout() {
+    private void showInfo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("About");
-        builder.setMessage(getString(R.string.about_message));
+        builder.setTitle("Information");
+        builder.setMessage(getString(R.string.info_message));
         builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
@@ -61,6 +71,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 showLicenseDialog();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void showAbout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("About");
+        builder.setMessage(getString(R.string.about_message));
+        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
         AlertDialog alert = builder.create();
@@ -80,4 +104,55 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    private boolean checkIfAcceptedPP() {
+        SharedPreferences prefs = getSharedPreferences("accepted", MODE_PRIVATE);
+        return prefs.getBoolean("acceptedPP", false);
+    }
+
+    private void setAcceptedPP(boolean accepted) {
+        SharedPreferences.Editor editor = getSharedPreferences("accepted", MODE_PRIVATE).edit();
+        editor.putBoolean("acceptedPP", accepted);
+        editor.apply();
+    }
+
+    private void displayPrivacyPolicyNotification() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Privacy Policy");
+        builder.setMessage(getString(R.string.privacy_policy_message));
+        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setAcceptedPP(true);
+            }
+        });
+        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setAcceptedPP(false);
+                finish();
+            }
+        });
+        builder.setNeutralButton("Read it", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                final String privacyPolicy = "https://www.swecookie.se/apps/privacy-policies/HSIMP-PP.pdf";
+                final Uri uri = Uri.parse("http://docs.google.com/gview?embedded=true&url=" + privacyPolicy);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        builder.setCancelable(false);
+        privacyBuilder = builder.create();
+        privacyBuilder.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (privacyBuilder != null && !checkIfAcceptedPP() && !privacyBuilder.isShowing()) {
+            displayPrivacyPolicyNotification();
+        }
+    }
+
 }

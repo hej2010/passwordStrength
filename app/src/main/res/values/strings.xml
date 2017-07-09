@@ -5,7 +5,16 @@
     <string name="input">Input password:</string>
 
     <string name="about">About</string>
+    <string name="info">Information</string>
     <string name="about_message" translatable="false">2017 © Rikard Teodorsson\nVersion 1.0.0</string>
+
+    <string name="info_message">The data and information in this app is purely for educational purposes and does not reflect real world situations. \n\n
+    The time-to-crack is based on 10 billion calculations per second.\n\n
+    Entered passwords are never stored or sent over the internet. All calculations are done locally on your device.
+    </string>
+
+    <string name="privacy_policy_message">By using the app, you agree to the privacy policy and the usage of third-party cookies.</string>
+
     <string name="license">The following license applies to the script used to check the strength of passwords:\n\n
     The MIT License (MIT)Copyright &#169; 2015, Mark Nicholas Wales / Small Hadron Collider\n\n
 
