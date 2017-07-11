@@ -24,18 +24,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // ca-app-pub-2831297200743176~9657558447
-        MobileAds.initialize(this, Constants.getAdID());
-
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        loadAds();
 
         loadWebView();
 
         if (!checkIfAcceptedPP()) {
             displayPrivacyPolicyNotification();
         }
+    }
+
+    private void loadAds() {
+        // ca-app-pub-2831297200743176~9657558447
+        MobileAds.initialize(this, Constants.getAdID());
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @SuppressLint("SetJavaScriptEnabled")

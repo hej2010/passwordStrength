@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -29,12 +28,14 @@ public class GeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
 
-        MobileAds.initialize(this, Constants.getAdID());
+        loadAds();
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        initLayout();
 
+        onBtnGenerateClicked();
+    }
+
+    private void initLayout() {
         txtSeekBar = (TextView) findViewById(R.id.txtSeekBar);
         txtPassword = (TextView) findViewById(R.id.txtPassword);
         txtNotice = (TextView) findViewById(R.id.txtNotice);
@@ -70,8 +71,14 @@ public class GeneratorActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
 
-        onBtnGenerateClicked();
+    private void loadAds() {
+        MobileAds.initialize(this, Constants.getAdID());
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void onBtnGenerateClicked() {
