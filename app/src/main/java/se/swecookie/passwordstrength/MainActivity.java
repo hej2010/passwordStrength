@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // ca-app-pub-2831297200743176~9657558447
-        MobileAds.initialize(this, "ca-app-pub-2831297200743176~9657558447");
+        MobileAds.initialize(this, Constants.getAdID());
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.txtInfo:
                 showInfo();
                 break;
+            case R.id.txtGenerator:
+                startGeneratorActivity();
+                break;
         }
     }
 
@@ -66,8 +69,19 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+        builder.setNeutralButton("Generator", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                startGeneratorActivity();
+            }
+        });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void startGeneratorActivity() {
+        startActivity(new Intent(MainActivity.this, GeneratorActivity.class));
     }
 
     private void showInfo() {

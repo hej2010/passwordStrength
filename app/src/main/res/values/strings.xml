@@ -9,6 +9,13 @@
     <string name="tips">Password tips</string>
     <string name="about_message" translatable="false">2017 © Rikard Teodorsson\nVersion 1.0</string>
 
+    <string name="pwd_title">Password generator</string>
+    <string name="pwd_message">Drag the slider to select a password length and click generate</string>
+    <string name="pwd_copy">Copy</string>
+    <string name="pwd_generate">Generate</string>
+    <string name="pwd_notice">Passwords that are less than 8 characters long are not recommended!</string>
+    <string name="pwd_copied">Password copied to clipboard.</string>
+
     <string name="info_message">The data and information in this app is purely for educational purposes and does not reflect real world situations.
     \n\nThe time-to-crack is based on 10 billion calculations per second.
     \n\nPasswords are never stored or sent over the internet. All calculations are done locally on your device.
@@ -38,6 +45,5 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR
     A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
-
 
 </resources>
