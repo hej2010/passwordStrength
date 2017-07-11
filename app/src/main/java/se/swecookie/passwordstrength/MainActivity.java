@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     private void showAbout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("About");
+        builder.setIcon(R.drawable.se);
         builder.setMessage(getString(R.string.about_message));
         builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
 
@@ -184,6 +185,31 @@ public class MainActivity extends AppCompatActivity {
         builder.setCancelable(false);
         privacyBuilder = builder.create();
         privacyBuilder.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        displayExitDialog();
+    }
+
+    private void displayExitDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Exit?");
+        builder.setMessage(getString(R.string.exit));
+        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
