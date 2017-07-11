@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">How Secure Is My Password</string>
+    <string name="app_name">HSIMP</string>
 
-    <string name="title">How secure is my password</string>
+    <string name="title">How secure is my password?</string>
     <string name="input">Input password:</string>
 
     <string name="about">About</string>
