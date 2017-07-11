@@ -50,14 +50,14 @@
         android:layout_above="@+id/view">
 
         <TextView
-            android:id="@+id/txtAbout"
+            android:id="@+id/txtTips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:onClick="onButtonClicked"
-            android:text="@string/about"
+            android:text="@string/tips"
             android:textAlignment="center"
             android:textColor="@android:color/white" />
 

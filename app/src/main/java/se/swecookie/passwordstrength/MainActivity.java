@@ -47,13 +47,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButtonClicked(View view) {
         switch (view.getId()) {
-            case R.id.txtAbout:
-                showAbout();
+            case R.id.txtTips:
+                showTips();
                 break;
             case R.id.txtInfo:
                 showInfo();
                 break;
         }
+    }
+
+    private void showTips() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Password tips");
+        builder.setMessage(getText(R.string.tips_message));
+        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void showInfo() {
@@ -66,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        builder.setNeutralButton("License", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("About", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                showLicenseDialog();
+                showAbout();
             }
         });
         AlertDialog alert = builder.create();
@@ -85,6 +99,13 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+            }
+        });
+        builder.setNeutralButton("License", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                showLicenseDialog();
             }
         });
         AlertDialog alert = builder.create();

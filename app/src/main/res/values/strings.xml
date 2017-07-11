@@ -6,12 +6,23 @@
 
     <string name="about">About</string>
     <string name="info">Information</string>
+    <string name="tips">Password tips</string>
     <string name="about_message" translatable="false">2017 © Rikard Teodorsson\nVersion 1.0</string>
 
-    <string name="info_message">The data and information in this app is purely for educational purposes and does not reflect real world situations. \n\n
-    The time-to-crack is based on 10 billion calculations per second.\n\n
-    Entered passwords are never stored or sent over the internet. All calculations are done locally on your device.
+    <string name="info_message">The data and information in this app is purely for educational purposes and does not reflect real world situations.
+    \n\nThe time-to-crack is based on 10 billion calculations per second.
+    \n\nPasswords are never stored or sent over the internet. All calculations are done locally on your device.
     </string>
+
+    <string name="tips_message"><b>Here are some tips on how to create a strong password that\'s difficult to crack.</b>\n\n
+        - Your password should be <b>at least</b> 8 characters long. (16+ is recommended)\n\n
+    - Your password should contain <b>lower case letters</b> (\"a b c\"), \n<b>upper case letters</b> (\"A B C\"), \n<b>numbers</b> (\"1 2 3\") and
+        \n<b>special characters</b> (\". % &amp; @\")
+    \n\n- <b>Never</b> use the exact same password on multiple accounts/websites. If one gets hacked, all the others may be in danger.
+    \n\n- Your password <b>shouldn\'t</b> contain <b>words</b>, <b>phone numbers</b> or other things that are <b>associated with you</b>, since it makes
+        guessing your password easier.
+    \n\n- Replacing letters with numbers (e.g. the word \"<b>Password</b>\" to \"<b>P455w0rd</b>\") does <b>not make a password more secure</b>. The time it takes to crack
+    it is almost the same.</string>
 
     <string name="privacy_policy_message">By using the app, you agree to the privacy policy and the usage of third-party cookies.</string>
 
