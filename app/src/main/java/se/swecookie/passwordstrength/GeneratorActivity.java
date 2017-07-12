@@ -74,7 +74,7 @@ public class GeneratorActivity extends AppCompatActivity {
     }
 
     private void loadAds() {
-        MobileAds.initialize(this, Constants.getAdID());
+        MobileAds.initialize(this, Constants.getBannerAdID());
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
