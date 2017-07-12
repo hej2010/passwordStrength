@@ -13,11 +13,14 @@ import android.webkit.WebView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
     private AlertDialog privacyBuilder;
+    private InterstitialAd mInterstitialAd;
+    static boolean fromGeneration = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        // Test: ca-app-pub-3940256099942544/1033173712
+        // Egna: ca-app-pub-2831297200743176~9657558447
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //TODO ändra till riktiga
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -218,6 +227,15 @@ public class MainActivity extends AppCompatActivity {
         if (privacyBuilder != null && !checkIfAcceptedPP() && !privacyBuilder.isShowing()) {
             displayPrivacyPolicyNotification();
         }
+        if (fromGeneration && showFullscreenAd()) {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            }
+        }
+    }
+
+    private boolean showFullscreenAd() {
+        return Math.random() > 0.66;
     }
 
 }

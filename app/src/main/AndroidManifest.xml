@@ -12,8 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:configChanges="screenSize|orientation"
-            android:screenOrientation="portrait">
+            android:configChanges="screenSize|orientation">
         </activity>
         <activity android:name=".GeneratorActivity"
             android:configChanges="screenSize|orientation"/>

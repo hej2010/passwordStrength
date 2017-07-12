@@ -24,7 +24,8 @@
         android:layout_below="@+id/textView2"
         android:text="@string/input"
         android:textAlignment="center"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
 
     <WebView
         android:id="@+id/webview"

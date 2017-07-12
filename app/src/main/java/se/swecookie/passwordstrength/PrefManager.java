@@ -9,9 +9,9 @@ class PrefManager {
     private SharedPreferences.Editor editor;
 
     // Shared preferences file name
-    private static final String PREF_NAME = "androidhive-welcome";
+    private static final String PREF_NAME = "welcome-screen";
 
-    private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String IS_FIRST_TIME_LAUNCH = "isFirstTimeLaunch";
 
     PrefManager(Context context) {
         int PRIVATE_MODE = 0;

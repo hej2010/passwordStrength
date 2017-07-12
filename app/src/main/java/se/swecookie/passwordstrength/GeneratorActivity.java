@@ -108,4 +108,10 @@ public class GeneratorActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onDestroy() {
+        MainActivity.fromGeneration = true;
+        super.onDestroy();
+    }
 }
