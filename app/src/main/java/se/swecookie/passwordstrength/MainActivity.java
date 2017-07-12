@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButtonClicked(View view) {
         switch (view.getId()) {
-            case R.id.txtTips:
+            case R.id.btnTips:
                 showTips();
                 break;
-            case R.id.txtInfo:
+            case R.id.btnInfo:
                 showInfo();
                 break;
-            case R.id.txtGenerator:
+            case R.id.btnGenerator:
                 startGeneratorActivity();
                 break;
         }

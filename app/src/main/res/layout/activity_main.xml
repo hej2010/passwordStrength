@@ -39,27 +39,23 @@
         android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@+id/txtGenerator"
+        android:layout_above="@+id/btnGenerator"
         android:background="@color/colorAccent" />
 
-    <TextView
-        android:id="@+id/txtGenerator"
+    <Button
+        android:id="@+id/btnGenerator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/view"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/holo_green_light"
         android:onClick="onButtonClicked"
-        android:text="@string/pwd_title"
-        android:textAlignment="center"
-        android:textColor="@android:color/white" />
+        android:text="@string/pwd_title" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@+id/lLButtons"
-        android:layout_marginBottom="2dp"
         android:background="@color/colorAccent" />
 
     <LinearLayout
@@ -69,29 +65,23 @@
         android:layout_above="@+id/view3"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txtTips"
+        <Button
+            android:id="@+id/btnTips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
             android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_blue_light"
             android:onClick="onButtonClicked"
-            android:text="@string/tips"
-            android:textAlignment="center"
-            android:textColor="@android:color/white" />
+            android:text="@string/tips" />
 
-        <TextView
-            android:id="@+id/txtInfo"
+        <Button
+            android:id="@+id/btnInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
             android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_orange_dark"
             android:onClick="onButtonClicked"
-            android:text="@string/info"
-            android:textAlignment="center"
-            android:textColor="@android:color/white" />
+            android:text="@string/info" />
 
     </LinearLayout>
 
