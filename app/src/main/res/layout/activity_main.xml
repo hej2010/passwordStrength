@@ -73,7 +73,10 @@
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_blue_light"
             android:onClick="onButtonClicked"
-            android:text="@string/tips" />
+            android:text="@string/tips"
+            android:drawableStart="@drawable/ic_lightbulb_small"
+            android:drawableLeft="@drawable/ic_lightbulb_small"
+            android:drawablePadding="-24dp"/>
 
         <Button
             android:id="@+id/btnInfo"

@@ -4,7 +4,6 @@
     <string name="title">How secure is my password?</string>
     <string name="input">Input password:</string>
 
-    <string name="about">About</string>
     <string name="info">Information</string>
     <string name="tips">Password tips</string>
     <string name="about_message" translatable="false">2017 © Rikard Teodorsson\nVersion 1.0</string>
@@ -48,20 +47,20 @@
     A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
 
-    <string name="slide_1_title">Welcome to \"How secure is my password?\"</string>
-    <string name="slide_1_desc">Find out how secure your password is!</string>
+    <string name="slide_1_title">Welcome to How secure is my password?</string>
+    <string name="slide_1_desc">Press next to continue!</string>
 
-    <string name="slide_2_title">Try your passwords</string>
-    <string name="slide_2_desc">See how secure they are!</string>
+    <string name="slide_2_title">Test your passwords&#8230;</string>
+    <string name="slide_2_desc">&#8230;and see how secure they are!</string>
 
-    <string name="slide_3_title">View tips</string>
-    <string name="slide_3_desc">Find out how to improve your password!</string>
+    <string name="slide_3_title">Read tips</string>
+    <string name="slide_3_desc">Learn how to create secure passwords!</string>
 
     <string name="slide_4_title">Never get hacked again</string>
     <string name="slide_4_desc">Create secure passwords using the password generator!</string>
 
     <string name="next">Next</string>
-    <string name="skip">Skip</string>
+    <string name="prev">Previous</string>
     <string name="start">Start</string>
 
 </resources>

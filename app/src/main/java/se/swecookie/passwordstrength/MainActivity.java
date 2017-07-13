@@ -41,14 +41,16 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(this, Constants.getBannerAdID());
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        AdRequest.Builder adRequest = new AdRequest.Builder();
+        adRequest.addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46"); //TODO ta bort
+
+        mAdView.loadAd(adRequest.build());
 
         mInterstitialAd = new InterstitialAd(this);
         // Test: ca-app-pub-3940256099942544/1033173712
         // Egna: ca-app-pub-2831297200743176/5422175246
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //TODO ändra till Constants.getInterst... + egna
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.loadAd(adRequest.build());
     }
 
     @SuppressLint("SetJavaScriptEnabled")

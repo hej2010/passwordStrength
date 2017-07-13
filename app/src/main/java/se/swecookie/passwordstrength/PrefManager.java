@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 class PrefManager {
 
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences pref;
+    private final SharedPreferences.Editor editor;
 
     // Shared preferences file name
     private static final String PREF_NAME = "welcome-screen";
