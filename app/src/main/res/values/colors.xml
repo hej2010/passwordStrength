@@ -3,6 +3,7 @@
     <color name="colorPrimary">#ecc93d</color>
     <color name="colorPrimaryDark">#5c4610</color>
     <color name="colorAccent">#8bb025</color>
+    <color name="colorAccent_40_percent">#638bb025</color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>

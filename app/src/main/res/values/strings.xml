@@ -22,7 +22,7 @@
     \n\nPasswords are never stored or sent over the internet. All calculations are done locally on your device.
     </string>
 
-    <string name="tips_message"><b>Here are some tips on how to create a strong password that\'s difficult to crack.</b>\n\n
+    <string name="tips_message"><b>Here are some tips on how to create a strong password that\'s difficult to crack:</b>\n\n
         - Your password should be <b>at least</b> 8 characters long. (16+ is recommended)\n\n
     - Your password should contain <b>lower case letters</b> (\"a b c\"), \n<b>upper case letters</b> (\"A B C\"), \n<b>numbers</b> (\"1 2 3\") and
         \n<b>special characters</b> (\". % &amp; @\")

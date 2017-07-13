@@ -26,11 +26,19 @@
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/textView4"
+        android:background="@color/colorAccent" />
+
     <TextView
         android:id="@+id/txtSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView4"
+        android:layout_below="@id/view"
         android:text=""
         android:textAlignment="center"
         android:textColor="@android:color/white" />
@@ -54,11 +62,18 @@
         android:textSize="12sp"
         android:visibility="invisible" />
 
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/txtNotice"
+        android:background="@color/colorAccent_40_percent" />
+
     <LinearLayout
         android:id="@+id/lL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtNotice"
+        android:layout_below="@id/view4"
         android:orientation="horizontal">
 
         <TextView
@@ -72,23 +87,40 @@
             android:textColor="@android:color/white"
             android:textIsSelectable="true"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent_40_percent" />
 
         <Button
             android:id="@+id/btnCopy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:layout_gravity="center"
             android:backgroundTint="@android:color/holo_green_dark"
             android:onClick="onButtonClicked"
             android:text="@string/pwd_copy" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/lL"
+        android:background="@color/colorAccent" />
+
     <Button
         android:id="@+id/btnGenerate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lL"
+        android:layout_below="@id/view2"
         android:backgroundTint="@android:color/holo_orange_light"
         android:onClick="onButtonClicked"
         android:text="@string/pwd_generate" />
