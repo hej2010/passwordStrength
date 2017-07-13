@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     private void showLicenseDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Script License");
-        builder.setMessage(getString(R.string.license));
+        builder.setMessage(getText(R.string.license));
         builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
