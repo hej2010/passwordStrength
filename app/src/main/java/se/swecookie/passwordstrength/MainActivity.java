@@ -53,14 +53,14 @@ public class MainActivity extends AppCompatActivity {
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest.Builder adRequest = new AdRequest.Builder();
-        adRequest.addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46"); //TODO ta bort
+        //adRequest.addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46");
 
         mAdView.loadAd(adRequest.build());
 
         mInterstitialAd = new InterstitialAd(this);
         // Test: ca-app-pub-3940256099942544/1033173712
         // Egna: ca-app-pub-2831297200743176/5422175246
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //TODO ändra till Constants.getInterst... + egna
+        mInterstitialAd.setAdUnitId(Constants.getInterstitialAdID());
         mInterstitialAd.loadAd(adRequest.build());
 
         mInterstitialAd.setAdListener(new AdListener() {

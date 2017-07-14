@@ -105,7 +105,7 @@
         android:layout_gravity="bottom"
         android:visibility="visible"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+        ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
     <!--TEST: ca-app-pub-3940256099942544/6300978111-->
     <!--EGNA: ca-app-pub-2831297200743176/2134291646-->
 
