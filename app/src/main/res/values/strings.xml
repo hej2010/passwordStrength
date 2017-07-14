@@ -61,6 +61,12 @@
 
     <string name="next">Next</string>
     <string name="prev">Previous</string>
-    <string name="start">Start</string>
+    <string name="start">Begin</string>
+
+    <string name="cb_showadvanced">Show advanced options</string>
+    <string name="cb_lowercase">Lower case letters (\"a b c\")</string>
+    <string name="cb_uppercase">Upper case letters (\"A B C\")</string>
+    <string name="cb_numbers">Numbers (\"1 2 3\")</string>
+    <string name="cb_specialchar">Special characters (\"# % @ &amp; .\")</string>
 
 </resources>

@@ -5,12 +5,17 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
@@ -20,12 +25,18 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog privacyBuilder;
     private InterstitialAd mInterstitialAd;
+    private Snackbar snackbarBackPressed;
+    private Button btnTips;
+    private int nrOfResumes = 0;
+
     static boolean fromGeneration = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnTips = (Button) findViewById(R.id.btnTips);
 
         loadAds();
 
@@ -51,6 +62,17 @@ public class MainActivity extends AppCompatActivity {
         // Egna: ca-app-pub-2831297200743176/5422175246
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //TODO ändra till Constants.getInterst... + egna
         mInterstitialAd.loadAd(adRequest.build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load new ad
+                AdRequest.Builder adRequest = new AdRequest.Builder()
+                        .addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46");
+                mInterstitialAd.loadAd(adRequest.build());
+                super.onAdClosed();
+            }
+        });
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -96,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGeneratorActivity() {
+        fromGeneration = true;
         startActivity(new Intent(MainActivity.this, GeneratorActivity.class));
     }
 
@@ -199,41 +222,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        displayExitDialog();
-    }
-
-    private void displayExitDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Exit?");
-        builder.setMessage(getString(R.string.exit));
-        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    @Override
     public void onResume() {
-        super.onResume();
         if (privacyBuilder != null && !checkIfAcceptedPP() && !privacyBuilder.isShowing()) {
             displayPrivacyPolicyNotification();
         }
         if (fromGeneration) {
-            if (mInterstitialAd.isLoaded()) {
+            if (mInterstitialAd.isLoaded() && nrOfResumes % 2 == 0) {
                 mInterstitialAd.show();
             }
+            nrOfResumes++;
+            fromGeneration = false;
         }
+        super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (snackbarBackPressed != null && snackbarBackPressed.isShownOrQueued()) {
+            finish();
+        } else {
+            snackbarBackPressed = Snackbar.make(btnTips, "Press the back button again to exit!", 2000);
+            View snackBarView = snackbarBackPressed.getView();
+            snackBarView.setBackgroundColor(Color.RED);
+            TextView textView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+            snackbarBackPressed.show();
+        }
+
     }
 
 }

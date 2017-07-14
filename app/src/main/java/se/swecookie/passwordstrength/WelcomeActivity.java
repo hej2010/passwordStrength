@@ -1,8 +1,12 @@
 package se.swecookie.passwordstrength;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -25,6 +29,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnPrev, btnNext;
     private PrefManager prefManager;
+    private AlertDialog privacyBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +96,48 @@ public class WelcomeActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    launchHomeScreen();
+                    displayPrivacyPolicyNotification();
                 }
             }
         });
+    }
+
+    private void setAcceptedPP(boolean accepted) {
+        SharedPreferences.Editor editor = getSharedPreferences("accepted", MODE_PRIVATE).edit();
+        editor.putBoolean("acceptedPP", accepted);
+        editor.apply();
+    }
+
+    private void displayPrivacyPolicyNotification() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WelcomeActivity.this);
+        builder.setTitle("Privacy Policy");
+        builder.setMessage(getString(R.string.privacy_policy_message));
+        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setAcceptedPP(true);
+                launchHomeScreen();
+            }
+        });
+        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                setAcceptedPP(false);
+                finish();
+            }
+        });
+        builder.setNeutralButton("Read it", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                final String privacyPolicy = "https://www.swecookie.se/apps/privacy-policies/HSIMP-PP.pdf";
+                final Uri uri = Uri.parse("http://docs.google.com/gview?embedded=true&url=" + privacyPolicy);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+        builder.setCancelable(false);
+        privacyBuilder = builder.create();
+        privacyBuilder.show();
     }
 
     private void addBottomDots(int currentPage) {
@@ -175,7 +218,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private class MyViewPagerAdapter extends PagerAdapter {
         private LayoutInflater layoutInflater;
 
-        public MyViewPagerAdapter() {
+        MyViewPagerAdapter() {
         }
 
         @Override

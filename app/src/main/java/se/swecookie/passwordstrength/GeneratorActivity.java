@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,6 +25,8 @@ public class GeneratorActivity extends AppCompatActivity {
     private TextView txtSeekBar, txtPassword, txtNotice;
     private int passwordLength = 16;
     private Button btnGenerate, btnCopy;
+    private CheckBox cBShowAdvanced, cBLowerCase, cBUpperCase, cBNumbers, cBSpecialChar;
+    private LinearLayout lLAdvancedOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +44,83 @@ public class GeneratorActivity extends AppCompatActivity {
         txtSeekBar = (TextView) findViewById(R.id.txtSeekBar);
         txtPassword = (TextView) findViewById(R.id.txtPassword);
         txtNotice = (TextView) findViewById(R.id.txtNotice);
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
+        final SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
         btnGenerate = (Button) findViewById(R.id.btnGenerate);
         btnCopy = (Button) findViewById(R.id.btnCopy);
         btnCopy.setEnabled(false);
+
+        cBShowAdvanced = (CheckBox) findViewById(R.id.cBShowAdvanced);
+        cBLowerCase = (CheckBox) findViewById(R.id.cBLowerCase);
+        cBUpperCase = (CheckBox) findViewById(R.id.cBUpperCase);
+        cBNumbers = (CheckBox) findViewById(R.id.cBNumbers);
+        cBSpecialChar = (CheckBox) findViewById(R.id.cBSpecialChar);
+        lLAdvancedOptions = (LinearLayout) findViewById(R.id.lLAdvancedOptions);
+        lLAdvancedOptions.setVisibility(View.GONE);
+        cBLowerCase.setChecked(true);
+        cBUpperCase.setChecked(true);
+        cBNumbers.setChecked(true);
+        cBSpecialChar.setChecked(true);
+        cBShowAdvanced.setChecked(false);
+
+        cBShowAdvanced.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    lLAdvancedOptions.setVisibility(View.VISIBLE);
+                } else {
+                    lLAdvancedOptions.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        // So that all cannot be disabled at the same time
+        cBLowerCase.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b && !cBUpperCase.isChecked() && !cBNumbers.isChecked() && !cBSpecialChar.isChecked()) {
+                    btnGenerate.setEnabled(false);
+                }
+                if (b && passwordLength > 0) {
+                    btnGenerate.setEnabled(true);
+                }
+            }
+        });
+
+        cBUpperCase.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b && !cBLowerCase.isChecked() && !cBNumbers.isChecked() && !cBSpecialChar.isChecked()) {
+                    btnGenerate.setEnabled(false);
+                }
+                if (b && passwordLength > 0) {
+                    btnGenerate.setEnabled(true);
+                }
+            }
+        });
+
+        cBNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b && !cBUpperCase.isChecked() && !cBLowerCase.isChecked() && !cBSpecialChar.isChecked()) {
+                    btnGenerate.setEnabled(false);
+                }
+                if (b && passwordLength > 0) {
+                    btnGenerate.setEnabled(true);
+                }
+            }
+        });
+
+        cBSpecialChar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b && !cBUpperCase.isChecked() && !cBNumbers.isChecked() && !cBLowerCase.isChecked()) {
+                    btnGenerate.setEnabled(false);
+                }
+                if (b && passwordLength > 0) {
+                    btnGenerate.setEnabled(true);
+                }
+            }
+        });
 
         txtSeekBar.setText(seekBar.getProgress() + "/" + seekBar.getMax() + " characters");
 
@@ -53,7 +131,7 @@ public class GeneratorActivity extends AppCompatActivity {
                 txtSeekBar.setText(passwordLength + "/" + seekBar.getMax() + " characters");
                 if (passwordLength == 0) {
                     btnGenerate.setEnabled(false);
-                } else {
+                } else if (cBLowerCase.isChecked() || cBUpperCase.isChecked() || cBNumbers.isChecked() || cBSpecialChar.isChecked()){
                     btnGenerate.setEnabled(true);
                 }
                 if (passwordLength < 8) {
@@ -82,12 +160,27 @@ public class GeneratorActivity extends AppCompatActivity {
     }
 
     private void onBtnGenerateClicked() {
-        char[] allowedCharsArray = Constants.getAllowedChars().toCharArray();
+        String allowed = "";
+        if (cBLowerCase.isChecked()) {
+            allowed = allowed + Constants.getAllowedCharsLower();
+        }
+        if (cBUpperCase.isChecked()) {
+            allowed = allowed + Constants.getAllowedCharsUpper();
+        }
+        if (cBNumbers.isChecked()) {
+            allowed = allowed + Constants.getAllowedCharsNumbers();
+        }
+        if (cBSpecialChar.isChecked()) {
+            allowed = allowed + Constants.getAllowedCharsSpecial();
+        }
+
+        char[] allowedCharsArray = allowed.toCharArray();
         char[] chars = new char[passwordLength];
         Random random = new Random();
 
+        int length = allowed.length();
         for (int i = 0; i < passwordLength; i++) {
-            chars[i] = allowedCharsArray[random.nextInt(Constants.getAllowedChars().length())];
+            chars[i] = allowedCharsArray[random.nextInt(length)];
         }
 
         txtPassword.setText(chars, 0, passwordLength);
@@ -107,11 +200,5 @@ public class GeneratorActivity extends AppCompatActivity {
                 break;
         }
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        MainActivity.fromGeneration = true;
-        super.onDestroy();
     }
 }

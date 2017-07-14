@@ -4,126 +4,180 @@
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView3"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/pwd_title"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView3"
-        android:layout_marginBottom="10dp"
-        android:text="@string/pwd_message"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="8dp"
-        android:layout_below="@id/textView4"
-        android:background="@color/colorAccent" />
-
-    <TextView
-        android:id="@+id/txtSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="@android:color/white" />
-
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtSeekBar"
-        android:max="32"
-        android:progress="16" />
-
-    <TextView
-        android:id="@+id/txtNotice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/seekBar"
-        android:text="@string/pwd_notice"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="12sp"
-        android:visibility="invisible" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/txtNotice"
-        android:background="@color/colorAccent_40_percent" />
-
-    <LinearLayout
-        android:id="@+id/lL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view4"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txtPassword"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:lines="3"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textIsSelectable="true"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:gravity="center"/>
+            android:orientation="vertical">
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent_40_percent" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/pwd_title"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnCopy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:layout_gravity="center"
-            android:backgroundTint="@android:color/holo_green_dark"
-            android:onClick="onButtonClicked"
-            android:text="@string/pwd_copy" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/pwd_message"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="8dp"
-        android:layout_below="@id/lL"
-        android:background="@color/colorAccent" />
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/colorAccent" />
 
-    <Button
-        android:id="@+id/btnGenerate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view2"
-        android:backgroundTint="@android:color/holo_orange_light"
-        android:onClick="onButtonClicked"
-        android:text="@string/pwd_generate" />
+            <TextView
+                android:id="@+id/txtSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="32"
+                android:progress="16" />
+
+            <TextView
+                android:id="@+id/txtNotice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pwd_notice"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="12sp"
+                android:visibility="invisible" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent_40_percent" />
+
+            <LinearLayout
+                android:id="@+id/lL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:lines="3"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textIsSelectable="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorAccent_40_percent" />
+
+                <Button
+                    android:id="@+id/btnCopy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:backgroundTint="@android:color/holo_green_dark"
+                    android:onClick="onButtonClicked"
+                    android:text="@string/pwd_copy" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/btnGenerate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/holo_orange_light"
+                android:onClick="onButtonClicked"
+                android:text="@string/pwd_generate" />
+
+            <CheckBox
+                android:id="@+id/cBShowAdvanced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cb_showadvanced"
+                android:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:id="@+id/lLAdvancedOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="150dp"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/colorAccent_40_percent" />
+
+                <CheckBox
+                    android:id="@+id/cBLowerCase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cb_lowercase"
+                    android:textColor="@android:color/white"/>
+
+                <CheckBox
+                    android:id="@+id/cBUpperCase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cb_uppercase"
+                    android:textColor="@android:color/white"/>
+
+                <CheckBox
+                    android:id="@+id/cBNumbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cb_numbers"
+                    android:textColor="@android:color/white"/>
+
+                <CheckBox
+                    android:id="@+id/cBSpecialChar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cb_specialchar"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
