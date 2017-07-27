@@ -3,6 +3,7 @@ package se.swecookie.passwordstrength;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Random;
 
@@ -27,11 +29,14 @@ public class GeneratorActivity extends AppCompatActivity {
     private Button btnGenerate, btnCopy;
     private CheckBox cBShowAdvanced, cBLowerCase, cBUpperCase, cBNumbers, cBSpecialChar;
     private LinearLayout lLAdvancedOptions;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         loadAds();
 
@@ -136,8 +141,14 @@ public class GeneratorActivity extends AppCompatActivity {
                 }
                 if (passwordLength < 8) {
                     txtNotice.setVisibility(View.VISIBLE);
-                } else {
+                    txtNotice.setText(getText(R.string.pwd_notice_bad));
+                    txtNotice.setTextColor(Color.RED);
+                } else if (passwordLength >= 8 && passwordLength < 16){
                     txtNotice.setVisibility(View.INVISIBLE);
+                } else {
+                    txtNotice.setVisibility(View.VISIBLE);
+                    txtNotice.setText(getText(R.string.pwd_notice_good));
+                    txtNotice.setTextColor(Color.GREEN);
                 }
             }
 
@@ -160,6 +171,7 @@ public class GeneratorActivity extends AppCompatActivity {
     }
 
     private void onBtnGenerateClicked() {
+        sendToFirebase("Generate Clicked");
         String allowed = "";
         if (cBLowerCase.isChecked()) {
             allowed = allowed + Constants.getAllowedCharsLower();
@@ -199,6 +211,12 @@ public class GeneratorActivity extends AppCompatActivity {
                 Snackbar.make(btnCopy, getString(R.string.pwd_copied), Snackbar.LENGTH_SHORT).show();
                 break;
         }
-
     }
+
+    private void sendToFirebase(String btnPressed) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, btnPressed);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
+    }
+
 }

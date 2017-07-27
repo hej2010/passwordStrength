@@ -20,6 +20,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Snackbar snackbarBackPressed;
     private Button btnTips;
     private int nrOfResumes = 0;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     static boolean fromGeneration = false;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnTips = (Button) findViewById(R.id.btnTips);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         loadAds();
 
@@ -67,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAdClosed() {
                 // Load new ad
-                AdRequest.Builder adRequest = new AdRequest.Builder()
-                        .addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46");
+                AdRequest.Builder adRequest = new AdRequest.Builder();
                 mInterstitialAd.loadAd(adRequest.build());
                 super.onAdClosed();
             }
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTips() {
+        sendToFirebase("Show Tips");
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Password tips");
         builder.setMessage(getText(R.string.tips_message));
@@ -118,11 +122,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGeneratorActivity() {
+        sendToFirebase("Open Generator");
         fromGeneration = true;
         startActivity(new Intent(MainActivity.this, GeneratorActivity.class));
     }
 
     private void showInfo() {
+        sendToFirebase("Show Info");
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Information");
         builder.setMessage(getString(R.string.info_message));
@@ -144,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAbout() {
+        sendToFirebase("Show About");
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("About");
         builder.setIcon(R.drawable.se);
@@ -166,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showLicenseDialog() {
+        sendToFirebase("Show License");
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Script License");
         builder.setMessage(getText(R.string.license));
@@ -219,6 +227,12 @@ public class MainActivity extends AppCompatActivity {
         builder.setCancelable(false);
         privacyBuilder = builder.create();
         privacyBuilder.show();
+    }
+
+    private void sendToFirebase(String btnPressed) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, btnPressed);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     @Override
