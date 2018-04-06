@@ -1,14 +1,11 @@
 <resources>
     <string name="app_name">HSIMP</string>
-
     <string name="title">How secure is my password?</string>
-    <string name="input">Input password:</string>
+    <string name="about_message" translatable="false">2017-2018 © Rikard Teodorsson\nVersion 1.2</string>
 
+    <string name="input">Input password:</string>
     <string name="info">Information</string>
     <string name="tips">Password tips</string>
-    <string name="about_message" translatable="false">2017 © Rikard Teodorsson\nVersion 1.1</string>
-
-    <string name="exit">Do you want to exit the app?</string>
 
     <string name="pwd_title">Password generator</string>
     <string name="pwd_message">Drag the slider to select a password length and click generate</string>
@@ -63,6 +60,8 @@
     <string name="next">Next</string>
     <string name="prev">Previous</string>
     <string name="start">Begin</string>
+
+    <string name="gener_seekbar_text">%1$d / %2$d characters</string>
 
     <string name="cb_showadvanced">Show advanced options</string>
     <string name="cb_lowercase">Lower case letters (\"a b c\")</string>

@@ -60,13 +60,14 @@
                 android:id="@+id/txtNotice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lines="2"
                 android:text="@string/pwd_notice_bad"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_red_light"
-                android:textSize="12sp"
-                android:visibility="invisible"
-                android:lines="2"
-                android:gravity="center"/>
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
             <View
                 android:id="@+id/view4"
@@ -85,6 +86,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:lines="3"
@@ -93,13 +100,7 @@
                     android:textColor="@android:color/white"
                     android:textIsSelectable="true"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"/>
+                    android:textStyle="bold" />
 
                 <View
                     android:id="@+id/view3"
@@ -158,28 +159,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cb_lowercase"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white" />
 
                 <CheckBox
                     android:id="@+id/cBUpperCase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cb_uppercase"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white" />
 
                 <CheckBox
                     android:id="@+id/cBNumbers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cb_numbers"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white" />
 
                 <CheckBox
                     android:id="@+id/cBSpecialChar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cb_specialchar"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white" />
 
                 <Space
                     android:layout_width="match_parent"

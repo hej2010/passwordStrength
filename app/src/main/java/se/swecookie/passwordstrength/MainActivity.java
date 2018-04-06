@@ -31,14 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private int nrOfResumes = 0;
     private FirebaseAnalytics mFirebaseAnalytics;
 
-    static boolean fromGeneration = false;
+    private boolean fromGeneration = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnTips = (Button) findViewById(R.id.btnTips);
+        btnTips = findViewById(R.id.btnTips);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadWebView();
 
-        if (!checkIfAcceptedPP()) {
+        if (notAcceptedPP()) {
             displayPrivacyPolicyNotification();
         }
     }
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // ca-app-pub-2831297200743176/2134291646
         MobileAds.initialize(this, Constants.getBannerAdID());
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest.Builder adRequest = new AdRequest.Builder();
         //adRequest.addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46");
 
@@ -78,9 +78,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @SuppressLint("SetJavaScriptEnabled")
     private void loadWebView() {
-        WebView webView = (WebView) findViewById(R.id.webview);
+        WebView webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/index.html");
     }
@@ -187,9 +188,9 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private boolean checkIfAcceptedPP() {
+    private boolean notAcceptedPP() {
         SharedPreferences prefs = getSharedPreferences("accepted", MODE_PRIVATE);
-        return prefs.getBoolean("acceptedPP", false);
+        return !prefs.getBoolean("acceptedPP", false);
     }
 
     private void setAcceptedPP(boolean accepted) {
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        if (privacyBuilder != null && !checkIfAcceptedPP() && !privacyBuilder.isShowing()) {
+        if (privacyBuilder != null && notAcceptedPP() && !privacyBuilder.isShowing()) {
             displayPrivacyPolicyNotification();
         }
         if (fromGeneration) {
@@ -258,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
             snackbarBackPressed = Snackbar.make(btnTips, "Press the back button again to exit!", 2000);
             View snackBarView = snackbarBackPressed.getView();
             snackBarView.setBackgroundColor(Color.RED);
-            TextView textView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(Color.WHITE);
             snackbarBackPressed.show();
         }
