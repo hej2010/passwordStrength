@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HSIMP</string>
     <string name="title">How secure is my password?</string>
-    <string name="about_message" translatable="false">2017-2018 © Rikard Teodorsson\nVersion 1.2</string>
+    <string name="about_message" translatable="false">2018 © Rikard Teodorsson\nVersion 1.3</string>
 
     <string name="input">Input password:</string>
     <string name="info">Information</string>

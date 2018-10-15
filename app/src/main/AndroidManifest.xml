@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="se.swecookie.passwordstrength">
 
     <application
@@ -9,14 +10,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2831297200743176~9657558447" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="screenSize|orientation">
-        </activity>
-        <activity android:name=".GeneratorActivity"
-            android:configChanges="screenSize|orientation"/>
-        <activity android:name=".WelcomeActivity" >
+            android:configChanges="screenSize|orientation" />
+        <activity
+            android:name=".GeneratorActivity"
+            android:configChanges="screenSize|orientation" />
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

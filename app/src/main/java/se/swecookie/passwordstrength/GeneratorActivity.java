@@ -5,9 +5,9 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -175,7 +175,7 @@ public class GeneratorActivity extends AppCompatActivity {
     }
 
     private void loadAds() {
-        MobileAds.initialize(this, Constants.getBannerAdID());
+        MobileAds.initialize(this, Constants.bannerAdID);
 
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -186,16 +186,16 @@ public class GeneratorActivity extends AppCompatActivity {
         sendToFirebase();
         String allowed = "";
         if (cBLowerCase.isChecked()) {
-            allowed = allowed + Constants.getAllowedCharsLower();
+            allowed = allowed + Constants.allowedCharsLower;
         }
         if (cBUpperCase.isChecked()) {
-            allowed = allowed + Constants.getAllowedCharsUpper();
+            allowed = allowed + Constants.allowedCharsUpper;
         }
         if (cBNumbers.isChecked()) {
-            allowed = allowed + Constants.getAllowedCharsNumbers();
+            allowed = allowed + Constants.allowedCharsNumbers;
         }
         if (cBSpecialChar.isChecked()) {
-            allowed = allowed + Constants.getAllowedCharsSpecial();
+            allowed = allowed + Constants.allowedCharsSpecial;
         }
 
         char[] allowedCharsArray = allowed.toCharArray();

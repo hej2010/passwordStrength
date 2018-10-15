@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -52,19 +52,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadAds() {
-        // ca-app-pub-2831297200743176/2134291646
-        MobileAds.initialize(this, Constants.getBannerAdID());
+        MobileAds.initialize(this, Constants.admobAppID);
 
         AdView mAdView = findViewById(R.id.adView);
         AdRequest.Builder adRequest = new AdRequest.Builder();
-        //adRequest.addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46");
 
         mAdView.loadAd(adRequest.build());
 
         mInterstitialAd = new InterstitialAd(this);
-        // Test: ca-app-pub-3940256099942544/1033173712
-        // Egna: ca-app-pub-2831297200743176/5422175246
-        mInterstitialAd.setAdUnitId(Constants.getInterstitialAdID());
+        mInterstitialAd.setAdUnitId(Constants.interstitialAdID);
         mInterstitialAd.loadAd(adRequest.build());
 
         mInterstitialAd.setAdListener(new AdListener() {
