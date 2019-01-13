@@ -25,9 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private Snackbar snackbarBackPressed;
     private Button btnTips;
-    private int nrOfResumes = 0;
 
+    private int nrOfResumes = 0;
     private boolean fromGeneration = false;
+
+    private static final String PREF_NAME = "accepted";
+    private static final String PREF_ACCEPTED = "acceptedPP1";
+    private static final String PATH_TO_FILE = "file:///android_asset/index.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadWebView() {
         WebView webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_asset/index.html");
+        webView.loadUrl(PATH_TO_FILE);
     }
 
     public void onButtonClicked(View view) {
@@ -90,24 +94,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTips() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Password tips");
-        builder.setMessage(getText(R.string.tips_message));
-        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.password_tips))
+                .setMessage(getText(R.string.tips_message))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setNeutralButton("Generator", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                startGeneratorActivity();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.generator), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startGeneratorActivity();
+                    }
+                }).show();
     }
 
     private void startGeneratorActivity() {
@@ -116,75 +117,70 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showInfo() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Information");
-        builder.setMessage(getString(R.string.info_message));
-        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.information))
+                .setMessage(getString(R.string.info_message))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setNeutralButton("About", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.about), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                showAbout();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showAbout();
+                    }
+                }).show();
     }
 
     private void showAbout() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("About");
-        builder.setIcon(R.drawable.se);
-        builder.setMessage(getString(R.string.about_message));
-        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.about))
+                .setIcon(R.drawable.se)
+                .setMessage(getString(R.string.about_message))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setNeutralButton("License", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.license), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                showLicenseDialog();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showLicenseDialog();
+                    }
+                }).show();
     }
 
     private void showLicenseDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Script License");
-        builder.setMessage(getText(R.string.license));
-        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.script_license))
+                .setMessage(getText(R.string.license_script))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).setNeutralButton(getString(R.string.privacy_policy_title), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.privacy_policy_title), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+                    }
+                }).show();
     }
 
     private boolean notAcceptedPP() {
-        SharedPreferences prefs = getSharedPreferences("accepted", MODE_PRIVATE);
-        return !prefs.getBoolean("acceptedPP", false);
+        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        return !prefs.getBoolean(PREF_ACCEPTED, false);
     }
 
     private void setAcceptedPP(boolean accepted) {
-        SharedPreferences.Editor editor = getSharedPreferences("accepted", MODE_PRIVATE).edit();
-        editor.putBoolean("acceptedPP", accepted);
+        SharedPreferences.Editor editor = getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(PREF_ACCEPTED, accepted);
         editor.apply();
     }
 
@@ -233,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         if (snackbarBackPressed != null && snackbarBackPressed.isShownOrQueued()) {
             finish();
         } else {
-            snackbarBackPressed = Snackbar.make(btnTips, "Press the back button again to exit!", 2000);
+            snackbarBackPressed = Snackbar.make(btnTips, getString(R.string.back_button_message), 2000);
             View snackBarView = snackbarBackPressed.getView();
             snackBarView.setBackgroundColor(Color.RED);
             TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
