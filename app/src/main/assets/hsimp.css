@@ -1,16 +1,87 @@
+body {
+    font-family: sans-serif;
+    font-size: 1em;
+    font-weight: 300;
+    background-color: #483609;
+}
+
+input {
+    font-family: sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    color: #888;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    line-height: 1.5em;
+    width: 100%;
+}
+
+.text {
+    display: inline;
+    color: #fff;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+.hsimp-time {
+    display: inline;
+    text-align: center;
+    color: #fff;
+}
+
+.hsimp-checks li {
+    list-style: none;
+    color: #fff;
+}
+
+.hsimp-checks h2 {
+    font-size: 1em;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+.hsimp-checks p {
+    margin-top: 0;
+    font-size: 1em;
+    color: #fff;
+}
+
 .hsimp-level {
     color: #fff;
     color: rgba(255, 255, 255, 0.9);
     transition: background .5s linear;
     background-color: #fff
 }
+
 .hsimp-level--bad,
 .hsimp-level--insecure {
     background-color: #c63136
 }
+
 .hsimp-level--ok {
     background-color: #de7b46
 }
+
 .hsimp-level--good {
     background-color: #2f8249
+}
+
+.pwInline {
+    display: inline-block;
+}
+
+.pwInline input {
+    max-width: 88%;
+}
+
+.pwInline img {
+    opacity: 1.0;
+    float: right;
+    width: 10%;
+}
+
+.pwInline img:hover {
+    opacity: 0.5;
 }
