@@ -1,6 +1,5 @@
 package se.swecookie.passwordstrength;
 
-import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Random;
 
@@ -33,14 +31,11 @@ public class GeneratorActivity extends AppCompatActivity {
     private CheckBox cBNumbers;
     private CheckBox cBSpecialChar;
     private LinearLayout lLAdvancedOptions;
-    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
-
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         loadAds();
 
@@ -51,7 +46,6 @@ public class GeneratorActivity extends AppCompatActivity {
         checkSliderLength();
     }
 
-    @SuppressLint("StringFormatInvalid")
     private void initLayout() {
         txtSeekBar = findViewById(R.id.txtSeekBar);
         txtPassword = findViewById(R.id.txtPassword);
@@ -183,7 +177,6 @@ public class GeneratorActivity extends AppCompatActivity {
     }
 
     private void onBtnGenerateClicked() {
-        sendToFirebase();
         String allowed = "";
         if (cBLowerCase.isChecked()) {
             allowed = allowed + Constants.allowedCharsLower;
@@ -224,12 +217,6 @@ public class GeneratorActivity extends AppCompatActivity {
                 Snackbar.make(btnCopy, getString(R.string.pwd_copied), Snackbar.LENGTH_SHORT).show();
                 break;
         }
-    }
-
-    private void sendToFirebase() {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Generate Clicked");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
     }
 
 }

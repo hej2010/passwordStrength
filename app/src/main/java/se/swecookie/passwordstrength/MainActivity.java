@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,16 +19,13 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
-
     private AlertDialog privacyBuilder;
     private InterstitialAd mInterstitialAd;
     private Snackbar snackbarBackPressed;
     private Button btnTips;
     private int nrOfResumes = 0;
-    private FirebaseAnalytics mFirebaseAnalytics;
 
     private boolean fromGeneration = false;
 
@@ -40,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         btnTips = findViewById(R.id.btnTips);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        loadWebView();
 
         loadAds();
-
-        loadWebView();
 
         if (notAcceptedPP()) {
             displayPrivacyPolicyNotification();
@@ -74,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     @SuppressLint("SetJavaScriptEnabled")
     private void loadWebView() {
         WebView webView = findViewById(R.id.webview);
@@ -97,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTips() {
-        sendToFirebase("Show Tips");
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Password tips");
         builder.setMessage(getText(R.string.tips_message));
@@ -119,13 +111,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGeneratorActivity() {
-        sendToFirebase("Open Generator");
         fromGeneration = true;
         startActivity(new Intent(MainActivity.this, GeneratorActivity.class));
     }
 
     private void showInfo() {
-        sendToFirebase("Show Info");
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Information");
         builder.setMessage(getString(R.string.info_message));
@@ -147,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAbout() {
-        sendToFirebase("Show About");
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("About");
         builder.setIcon(R.drawable.se);
@@ -170,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showLicenseDialog() {
-        sendToFirebase("Show License");
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Script License");
         builder.setMessage(getText(R.string.license));
@@ -178,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+            }
+        }).setNeutralButton(getString(R.string.privacy_policy_title), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
             }
         });
         AlertDialog alert = builder.create();
@@ -196,40 +189,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayPrivacyPolicyNotification() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Privacy Policy");
-        builder.setMessage(getString(R.string.privacy_policy_message));
-        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                setAcceptedPP(true);
-            }
-        });
-        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                setAcceptedPP(false);
-                finish();
-            }
-        });
-        builder.setNeutralButton("Read it", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                final String privacyPolicy = "https://www.swecookie.se/apps/privacy-policies/HSIMP-PP.pdf";
-                final Uri uri = Uri.parse("http://docs.google.com/gview?embedded=true&url=" + privacyPolicy);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-        builder.setCancelable(false);
-        privacyBuilder = builder.create();
-        privacyBuilder.show();
-    }
-
-    private void sendToFirebase(String btnPressed) {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, btnPressed);
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        privacyBuilder = new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.privacy_policy_title))
+                .setMessage(getString(R.string.privacy_policy_message))
+                .setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        setAcceptedPP(true);
+                    }
+                })
+                .setNegativeButton(getString(R.string.decline), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        setAcceptedPP(false);
+                        finish();
+                    }
+                })
+                .setNeutralButton(getString(R.string.read_it), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 
     @Override

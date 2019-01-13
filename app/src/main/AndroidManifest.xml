@@ -19,14 +19,6 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="screenSize|orientation"
-            android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".GeneratorActivity"
-            android:configChanges="screenSize|orientation"
-            android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".WelcomeActivity"
-            android:configChanges="screenSize|orientation"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GeneratorActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".PrivacyPolicyActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="sensorPortrait" />
     </application>
 
 </manifest>

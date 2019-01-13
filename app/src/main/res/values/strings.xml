@@ -21,8 +21,8 @@
     </string>
 
     <string name="tips_message"><b>Here are some tips on how to create a strong password that\'s difficult to crack:</b>\n\n
-        - Your password should be <b>at least</b> 8 characters long. (16+ is recommended)\n\n
-    - Your password should contain <b>lower case letters</b> (\"a b c\"), \nupper case letters (\"A B C\"), \nnumbers (\"1 2 3\") and
+        - Your password should be at least 8 characters long. (16+ is recommended)\n\n
+    - Your password should contain lower case letters (\"a b c\"), \nupper case letters (\"A B C\"), \nnumbers (\"1 2 3\") and
         \nspecial characters (\". % &amp; @\")
     \n\n- Never use the exact same password on multiple accounts/websites. If one gets hacked, all the others may be in danger.
     \n\n- Your password shouldn\'t contain words, phone numbers or other things that are associated with you, since it makes
@@ -30,7 +30,19 @@
     \n\n- Replacing letters with numbers (e.g. the word \"Password\" to \"P455w0rd\") does not make a password more secure. The time it takes to crack
     it is almost the same.</string>
 
+    <string name="privacy_policy_title">Privacy policy</string>
     <string name="privacy_policy_message">By using the app, you agree to the privacy policy and the usage of third-party cookies.</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="read_it">Read it</string>
+
+    <string name="gener_seekbar_text">%1$d / %2$d characters</string>
+
+    <string name="cb_showadvanced">Show advanced options</string>
+    <string name="cb_lowercase">Lower case letters (\"a b c\")</string>
+    <string name="cb_uppercase">Upper case letters (\"A B C\")</string>
+    <string name="cb_numbers">Numbers (\"1 2 3\")</string>
+    <string name="cb_specialchar">Special characters (\"# % @ &amp; .\")</string>
 
     <string name="license"><b>The following license applies to the script used to check the strength of passwords:</b>
     \n\nThe MIT License (MIT)Copyright &#169; 2015, Mark Nicholas Wales / Small Hadron Collider
@@ -45,28 +57,43 @@
     A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
 
-    <string name="slide_1_title">Welcome to How secure is my password!</string>
-    <string name="slide_1_desc">Press next to continue!</string>
+    <string name="privacy_policy">This Privacy Policy is available at any time from Information->About->License->Privacy Policy.\n\n
 
-    <string name="slide_2_title">Test your passwords&#8230;</string>
-    <string name="slide_2_desc">&#8230;and see how secure they are!</string>
+    Last updated: 2019–01–13\n\n
 
-    <string name="slide_3_title">Read tips</string>
-    <string name="slide_3_desc">Learn how to create strong &amp; secure passwords!</string>
+    Arctosoft (\"we\", \"us\") operate the application \"How Secure Is My Password\" (the \"app\", \"HSIMP\"). This text informs you of the policies regarding the collection, use and disclosure of Personal Information we receive from users of the App.\n\n
 
-    <string name="slide_4_title">Never get hacked again</string>
-    <string name="slide_4_desc">Create secure passwords using the password generator!</string>
+    By using HSIMP, you agree to the collection and use of information in accordance with this policy.\n\n
 
-    <string name="next">Next</string>
-    <string name="prev">Previous</string>
-    <string name="start">Begin</string>
+    <b>Information Collection And Use</b>\n
+    No personally identifiable information will be collected and/or shared while you use the App.\n\n
 
-    <string name="gener_seekbar_text">%1$d / %2$d characters</string>
+    <b>Purpose of Use</b>\n
+    The only purpose of the collected information is to continue the support and development of the App.\n\n
 
-    <string name="cb_showadvanced">Show advanced options</string>
-    <string name="cb_lowercase">Lower case letters (\"a b c\")</string>
-    <string name="cb_uppercase">Upper case letters (\"A B C\")</string>
-    <string name="cb_numbers">Numbers (\"1 2 3\")</string>
-    <string name="cb_specialchar">Special characters (\"# % @ &amp; .\")</string>
+    <b>Third Party Services &amp; Cookies</b>\n
+    We use third party services to serve ads. These include:\n\n
+
+    <b>- Cookies, AdMob and Firebase:</b>\n
+    We use banner &amp; interstitial ads in the app, (Firebase ads) to keep it free.\n\n
+    &#8212; Third parties, including Google, use cookies to serve ads based on the user\'s prior visits to the App and other websites.\n\n
+    &#8212; Google\'s use of advertising cookies enables it and its partners to serve ads to users of the App, based on their visit to the App and/or other sites on the Internet.\n\n
+    &#8212; Other third parties may also display ads in the App. For a full list, visit adwords-vendors <i>(https://developers.google.com/third-party-ads/adwords-vendors)</i> and adx-vendors <i>(https://developers.google.com/third-party-ads/adx-vendors)</i>.\n\n
+    &#8212; The user can opt out of personalized advertising by visiting <i>google.com/settings/ads</i> and/or <i>aboutads.info</i>.\n\n
+
+    <b>- Firebase Analytics:</b>\n
+    Used to be able to keep track of user activity when using the app. Data collected is e.g. number of users, which screens are used, country and device info.\n\n
+
+    <b>- Cookies</b>\n
+    Cookies are files with small amount of data, which may include an anonymous unique identifier. Cookies are sent to your device from a web site and stored on your device\'s internal storage.\n\n
+    By using the app, you agree to third-parties storing cookies on your device. If you do not agree with the usage of cookies, the app will not be usable.\n\n
+
+    <b>Changes To This Privacy Policy</b>\n
+    This Privacy Policy is effective as of 2019-01-13 and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.\n\n
+
+    We reserve the right to update or change our Privacy Policy at any time and you should check this Privacy Policy periodically. Your continued use of the Service after we post any modifications to the Privacy Policy on this page will constitute your acknowledgment of the modifications and your consent to abide and be bound by the modified Privacy Policy.\n\n
+
+    <b>Contact Us</b>\n
+    If you have any questions about this Privacy Policy, please contact us at contact@arctosoft.com\n\n\n\n</string>
 
 </resources>
