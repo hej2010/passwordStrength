@@ -39,6 +39,9 @@
 
     <string name="back_button_message">Press the back button again to exit!</string>
 
+    <string name="generator_shortcut_long_label">Password Generator</string>
+    <string name="generator_shortcut_short_label">Generator</string>
+
     <string name="info_message">The data and information in this app is purely for educational purposes and does not reflect real world situations.
     \n\nThe time-to-crack is based on 10 billion calculations per second (10GHz).
     \n\nPasswords are never stored or sent over the internet. All calculations are done locally on your device.
