@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean fromGeneration = false;
 
     private static final String PREF_NAME = "accepted";
-    private static final String PREF_ACCEPTED = "acceptedPP1";
+    private static final String PREF_ACCEPTED = "acceptedPP";
     private static final String PATH_TO_FILE = "file:///android_asset/index.html";
 
     @Override
