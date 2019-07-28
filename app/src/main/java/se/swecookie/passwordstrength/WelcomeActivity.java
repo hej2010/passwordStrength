@@ -9,9 +9,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +19,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
@@ -29,13 +31,11 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnPrev, btnNext;
     private PrefManager prefManager;
-    private AlertDialog privacyBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
@@ -49,14 +49,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_welcome);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnPrev = (Button) findViewById(R.id.btn_prev);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        viewPager = findViewById(R.id.view_pager);
+        dotsLayout = findViewById(R.id.layoutDots);
+        btnPrev = findViewById(R.id.btn_prev);
+        btnNext = findViewById(R.id.btn_next);
 
 
-        // layouts of all welcome sliders
-        // add few more layouts if you want
         layouts = new int[]{
                 R.layout.welcome_slide1,
                 R.layout.welcome_slide2,
@@ -76,7 +74,7 @@ public class WelcomeActivity extends AppCompatActivity {
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int current = getItem(+1);
+                int current = getItem();
                 if (current > 0) {
                     // move to previous screen
                     viewPager.setCurrentItem(current - 2);
@@ -91,7 +89,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // checking for last page
                 // if last page home screen will be launched
-                int current = getItem(+1);
+                int current = getItem();
                 if (current < layouts.length) {
                     // move to next screen
                     viewPager.setCurrentItem(current);
@@ -129,14 +127,13 @@ public class WelcomeActivity extends AppCompatActivity {
         builder.setNeutralButton("Read it", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                final String privacyPolicy = "https://www.swecookie.se/apps/privacy-policies/HSIMP-PP.pdf";
-                final Uri uri = Uri.parse("http://docs.google.com/gview?embedded=true&url=" + privacyPolicy);
+                final Uri uri = Uri.parse("https://arctosoft.com/products/how-secure-is-my-password/privacy-policy/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         });
         builder.setCancelable(false);
-        privacyBuilder = builder.create();
+        AlertDialog privacyBuilder = builder.create();
         privacyBuilder.show();
     }
 
@@ -159,12 +156,12 @@ public class WelcomeActivity extends AppCompatActivity {
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 
-    private int getItem(int i) {
-        return viewPager.getCurrentItem() + i;
+    private int getItem() {
+        return viewPager.getCurrentItem() + 1;
     }
 
     private void launchHomeScreen() {
-        prefManager.setFirstTimeLaunch(false);
+        prefManager.setFirstTimeLaunch();
         startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
         finish();
     }
@@ -212,19 +209,17 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * View pager adapter
-     */
     private class MyViewPagerAdapter extends PagerAdapter {
-        private LayoutInflater layoutInflater;
 
         MyViewPagerAdapter() {
         }
 
+        @NonNull
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            assert layoutInflater != null;
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
 
@@ -237,13 +232,12 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object obj) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object obj) {
             return view == obj;
         }
 
-
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(ViewGroup container, int position, @NonNull Object object) {
             View view = (View) object;
             container.removeView(view);
         }

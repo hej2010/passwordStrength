@@ -5,21 +5,20 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnTips = (Button) findViewById(R.id.btnTips);
+        btnTips = findViewById(R.id.btnTips);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadWebView();
 
-        if (!checkIfAcceptedPP()) {
+        if (!acceptedPP()) {
             displayPrivacyPolicyNotification();
         }
     }
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         // ca-app-pub-2831297200743176/2134291646
         MobileAds.initialize(this, Constants.getBannerAdID());
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest.Builder adRequest = new AdRequest.Builder();
         //adRequest.addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46");
 
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void loadWebView() {
-        WebView webView = (WebView) findViewById(R.id.webview);
+        WebView webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/index.html");
     }
@@ -187,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private boolean checkIfAcceptedPP() {
+    private boolean acceptedPP() {
         SharedPreferences prefs = getSharedPreferences("accepted", MODE_PRIVATE);
         return prefs.getBoolean("acceptedPP", false);
     }
@@ -218,8 +217,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNeutralButton("Read it", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                final String privacyPolicy = "https://www.swecookie.se/apps/privacy-policies/HSIMP-PP.pdf";
-                final Uri uri = Uri.parse("http://docs.google.com/gview?embedded=true&url=" + privacyPolicy);
+                final Uri uri = Uri.parse("https://arctosoft.com/products/how-secure-is-my-password/privacy-policy/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -237,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        if (privacyBuilder != null && !checkIfAcceptedPP() && !privacyBuilder.isShowing()) {
+        if (privacyBuilder != null && !acceptedPP() && !privacyBuilder.isShowing()) {
             displayPrivacyPolicyNotification();
         }
         if (fromGeneration) {
@@ -256,10 +254,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         } else {
             snackbarBackPressed = Snackbar.make(btnTips, "Press the back button again to exit!", 2000);
-            View snackBarView = snackbarBackPressed.getView();
-            snackBarView.setBackgroundColor(Color.RED);
-            TextView textView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.WHITE);
             snackbarBackPressed.show();
         }
 

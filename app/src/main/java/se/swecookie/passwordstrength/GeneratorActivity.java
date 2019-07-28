@@ -4,8 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Random;
@@ -27,7 +29,7 @@ public class GeneratorActivity extends AppCompatActivity {
     private TextView txtSeekBar, txtPassword, txtNotice;
     private int passwordLength = 16;
     private Button btnGenerate, btnCopy;
-    private CheckBox cBShowAdvanced, cBLowerCase, cBUpperCase, cBNumbers, cBSpecialChar;
+    private CheckBox cBLowerCase, cBUpperCase, cBNumbers, cBSpecialChar;
     private LinearLayout lLAdvancedOptions;
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -46,20 +48,20 @@ public class GeneratorActivity extends AppCompatActivity {
     }
 
     private void initLayout() {
-        txtSeekBar = (TextView) findViewById(R.id.txtSeekBar);
-        txtPassword = (TextView) findViewById(R.id.txtPassword);
-        txtNotice = (TextView) findViewById(R.id.txtNotice);
-        final SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
-        btnGenerate = (Button) findViewById(R.id.btnGenerate);
-        btnCopy = (Button) findViewById(R.id.btnCopy);
+        txtSeekBar = findViewById(R.id.txtSeekBar);
+        txtPassword = findViewById(R.id.txtPassword);
+        txtNotice = findViewById(R.id.txtNotice);
+        final SeekBar seekBar = findViewById(R.id.seekBar);
+        btnGenerate = findViewById(R.id.btnGenerate);
+        btnCopy = findViewById(R.id.btnCopy);
         btnCopy.setEnabled(false);
 
-        cBShowAdvanced = (CheckBox) findViewById(R.id.cBShowAdvanced);
-        cBLowerCase = (CheckBox) findViewById(R.id.cBLowerCase);
-        cBUpperCase = (CheckBox) findViewById(R.id.cBUpperCase);
-        cBNumbers = (CheckBox) findViewById(R.id.cBNumbers);
-        cBSpecialChar = (CheckBox) findViewById(R.id.cBSpecialChar);
-        lLAdvancedOptions = (LinearLayout) findViewById(R.id.lLAdvancedOptions);
+        CheckBox cBShowAdvanced = findViewById(R.id.cBShowAdvanced);
+        cBLowerCase = findViewById(R.id.cBLowerCase);
+        cBUpperCase = findViewById(R.id.cBUpperCase);
+        cBNumbers = findViewById(R.id.cBNumbers);
+        cBSpecialChar = findViewById(R.id.cBSpecialChar);
+        lLAdvancedOptions = findViewById(R.id.lLAdvancedOptions);
         lLAdvancedOptions.setVisibility(View.GONE);
         cBLowerCase.setChecked(true);
         cBUpperCase.setChecked(true);
@@ -127,23 +129,23 @@ public class GeneratorActivity extends AppCompatActivity {
             }
         });
 
-        txtSeekBar.setText(seekBar.getProgress() + "/" + seekBar.getMax() + " characters");
+        updateTxtSeekbar(seekBar);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 passwordLength = i;
-                txtSeekBar.setText(passwordLength + "/" + seekBar.getMax() + " characters");
+                updateTxtSeekbar(seekBar);
                 if (passwordLength == 0) {
                     btnGenerate.setEnabled(false);
-                } else if (cBLowerCase.isChecked() || cBUpperCase.isChecked() || cBNumbers.isChecked() || cBSpecialChar.isChecked()){
+                } else if (cBLowerCase.isChecked() || cBUpperCase.isChecked() || cBNumbers.isChecked() || cBSpecialChar.isChecked()) {
                     btnGenerate.setEnabled(true);
                 }
                 if (passwordLength < 8) {
                     txtNotice.setVisibility(View.VISIBLE);
                     txtNotice.setText(getText(R.string.pwd_notice_bad));
                     txtNotice.setTextColor(Color.RED);
-                } else if (passwordLength >= 8 && passwordLength < 16){
+                } else if (passwordLength < 16) {
                     txtNotice.setVisibility(View.INVISIBLE);
                 } else {
                     txtNotice.setVisibility(View.VISIBLE);
@@ -162,16 +164,20 @@ public class GeneratorActivity extends AppCompatActivity {
         });
     }
 
+    private void updateTxtSeekbar(@NonNull SeekBar seekBar) {
+        txtSeekBar.setText(getString(R.string.generator_chars, seekBar.getProgress(), seekBar.getMax()));
+    }
+
     private void loadAds() {
         MobileAds.initialize(this, Constants.getBannerAdID());
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
 
     private void onBtnGenerateClicked() {
-        sendToFirebase("Generate Clicked");
+        sendGenerateClicked();
         String allowed = "";
         if (cBLowerCase.isChecked()) {
             allowed = allowed + Constants.getAllowedCharsLower();
@@ -207,15 +213,17 @@ public class GeneratorActivity extends AppCompatActivity {
             case R.id.btnCopy:
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText(txtPassword.getText(), txtPassword.getText());
-                clipboard.setPrimaryClip(clip);
+                if (clipboard != null) {
+                    clipboard.setPrimaryClip(clip);
+                }
                 Snackbar.make(btnCopy, getString(R.string.pwd_copied), Snackbar.LENGTH_SHORT).show();
                 break;
         }
     }
 
-    private void sendToFirebase(String btnPressed) {
+    private void sendGenerateClicked() {
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, btnPressed);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Generate Clicked");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
     }
 

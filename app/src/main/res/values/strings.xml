@@ -18,6 +18,8 @@
     <string name="pwd_notice_good">Passwords that are more than 15 characters long are secure!</string>
     <string name="pwd_copied">Password copied to clipboard.</string>
 
+    <string name="generator_chars">%1$d/%2$d characters</string>
+
     <string name="info_message">The data and information in this app is purely for educational purposes and does not reflect real world situations.
     \n\nThe time-to-crack is based on 10 billion calculations per second.
     \n\nPasswords are never stored or sent over the internet. All calculations are done locally on your device.

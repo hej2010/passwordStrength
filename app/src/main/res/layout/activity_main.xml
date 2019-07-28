@@ -19,9 +19,9 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:text="@string/input"
         android:textAlignment="center"
         android:textColor="@android:color/white"
@@ -32,9 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/view2"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView" />
+        android:layout_alignParentLeft="true" />
 
     <View
         android:id="@+id/view2"
@@ -72,11 +72,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_blue_light"
-            android:onClick="onButtonClicked"
-            android:text="@string/tips"
             android:drawableStart="@drawable/ic_lightbulb_small2"
             android:drawableLeft="@drawable/ic_lightbulb_small2"
-            android:drawablePadding="-24dp"/>
+            android:drawablePadding="-24dp"
+            android:onClick="onButtonClicked"
+            android:text="@string/tips" />
 
         <Button
             android:id="@+id/btnInfo"
@@ -106,7 +106,5 @@
         android:visibility="visible"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
-    <!--TEST: ca-app-pub-3940256099942544/6300978111-->
-    <!--EGNA: ca-app-pub-2831297200743176/2134291646-->
 
 </RelativeLayout>
