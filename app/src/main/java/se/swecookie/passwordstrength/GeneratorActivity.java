@@ -20,7 +20,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Random;
 
@@ -31,14 +30,11 @@ public class GeneratorActivity extends AppCompatActivity {
     private Button btnGenerate, btnCopy;
     private CheckBox cBLowerCase, cBUpperCase, cBNumbers, cBSpecialChar;
     private LinearLayout lLAdvancedOptions;
-    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
-
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         loadAds();
 
@@ -140,6 +136,7 @@ public class GeneratorActivity extends AppCompatActivity {
                     btnGenerate.setEnabled(false);
                 } else if (cBLowerCase.isChecked() || cBUpperCase.isChecked() || cBNumbers.isChecked() || cBSpecialChar.isChecked()) {
                     btnGenerate.setEnabled(true);
+                    onBtnGenerateClicked();
                 }
                 if (passwordLength < 8) {
                     txtNotice.setVisibility(View.VISIBLE);
@@ -169,7 +166,7 @@ public class GeneratorActivity extends AppCompatActivity {
     }
 
     private void loadAds() {
-        MobileAds.initialize(this, Constants.getBannerAdID());
+        MobileAds.initialize(this, Constants.bannerAdID);
 
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -177,19 +174,18 @@ public class GeneratorActivity extends AppCompatActivity {
     }
 
     private void onBtnGenerateClicked() {
-        sendGenerateClicked();
         String allowed = "";
         if (cBLowerCase.isChecked()) {
-            allowed = allowed + Constants.getAllowedCharsLower();
+            allowed = allowed + Constants.allowedCharsLower;
         }
         if (cBUpperCase.isChecked()) {
-            allowed = allowed + Constants.getAllowedCharsUpper();
+            allowed = allowed + Constants.allowedCharsUpper;
         }
         if (cBNumbers.isChecked()) {
-            allowed = allowed + Constants.getAllowedCharsNumbers();
+            allowed = allowed + Constants.allowedCharsNumbers;
         }
         if (cBSpecialChar.isChecked()) {
-            allowed = allowed + Constants.getAllowedCharsSpecial();
+            allowed = allowed + Constants.allowedCharsSpecial;
         }
 
         char[] allowedCharsArray = allowed.toCharArray();
@@ -219,12 +215,6 @@ public class GeneratorActivity extends AppCompatActivity {
                 Snackbar.make(btnCopy, getString(R.string.pwd_copied), Snackbar.LENGTH_SHORT).show();
                 break;
         }
-    }
-
-    private void sendGenerateClicked() {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Generate Clicked");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
     }
 
 }

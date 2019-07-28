@@ -4,64 +4,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="utf-8">
         <title>How secure is my password</title>
-
-        <style>
-            body {
-                font-family: sans-serif;
-                font-size: 1em;
-                font-weight: 300;
-                background-color: #483609;
-            }
-
-            input {
-                font-family: sans-serif;
-                font-size: 1.2em;
-                font-weight: 300;
-                color: #888;
-                border: 1px solid #bbb;
-                border-radius: 3px;
-                line-height: 1.5em;
-                width: 100%;
-            }
-
-            .text {
-                display: inline;
-                color: #fff;
-            }
-
-            div {
-                margin-bottom: 10px;
-            }
-
-            .hsimp-time {
-                display: inline;
-                text-align: center;
-                color: #fff;
-            }
-
-            .hsimp-checks li {
-                list-style: none;
-                color: #fff;
-            }
-
-            .hsimp-checks h2 {
-                font-size: 1em;
-                margin-bottom: 0;
-                color: #fff;
-            }
-
-            .hsimp-checks p {
-                margin-top: 0;
-                font-size: 1em;
-                color: #fff;
-            }
-        </style>
-
         <link rel="stylesheet" href="hsimp.css">
     </head>
     <body>
         <center><p class="text">Enter a password: </p>
-        <input id="password-box" type="password" />
+            <div class="pwInline">
+                <input id="password-box" type="password"/>
+                <img id="togglePw" src="ic_visibility_off.png" onclick="togglePassword()"/>
+            </div>
         <br>
         <p class="text">Time to crack: </p>
         <div id="password-time" class="hsimp-time"></div></center>

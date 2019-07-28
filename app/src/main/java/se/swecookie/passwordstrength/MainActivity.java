@@ -5,11 +5,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.net.Uri;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,15 +24,17 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
-
     private AlertDialog privacyBuilder;
     private InterstitialAd mInterstitialAd;
     private Snackbar snackbarBackPressed;
     private Button btnTips;
-    private int nrOfResumes = 0;
-    private FirebaseAnalytics mFirebaseAnalytics;
 
-    static boolean fromGeneration = false;
+    private int nrOfResumes = 0;
+    private boolean fromGeneration = false;
+
+    private static final String PREF_NAME = "accepted";
+    private static final String PREF_ACCEPTED = "acceptedPP";
+    private static final String PATH_TO_FILE = "file:///android_asset/index.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,31 +43,25 @@ public class MainActivity extends AppCompatActivity {
 
         btnTips = findViewById(R.id.btnTips);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        loadWebView();
 
         loadAds();
 
-        loadWebView();
-
-        if (!acceptedPP()) {
+        if (notAcceptedPP()) {
             displayPrivacyPolicyNotification();
         }
     }
 
     private void loadAds() {
-        // ca-app-pub-2831297200743176/2134291646
-        MobileAds.initialize(this, Constants.getBannerAdID());
+        MobileAds.initialize(this, Constants.admobAppID);
 
         AdView mAdView = findViewById(R.id.adView);
         AdRequest.Builder adRequest = new AdRequest.Builder();
-        //adRequest.addTestDevice("1CF4C5A820E9AC0884AF9C08201B6E46");
 
         mAdView.loadAd(adRequest.build());
 
         mInterstitialAd = new InterstitialAd(this);
-        // Test: ca-app-pub-3940256099942544/1033173712
-        // Egna: ca-app-pub-2831297200743176/5422175246
-        mInterstitialAd.setAdUnitId(Constants.getInterstitialAdID());
+        mInterstitialAd.setAdUnitId(Constants.interstitialAdID);
         mInterstitialAd.loadAd(adRequest.build());
 
         mInterstitialAd.setAdListener(new AdListener() {
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadWebView() {
         WebView webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_asset/index.html");
+        webView.loadUrl(PATH_TO_FILE);
     }
 
     public void onButtonClicked(View view) {
@@ -99,143 +97,124 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTips() {
-        sendToFirebase("Show Tips");
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Password tips");
-        builder.setMessage(getText(R.string.tips_message));
-        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.password_tips))
+                .setMessage(getText(R.string.tips_message))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setNeutralButton("Generator", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                startGeneratorActivity();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.generator), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startGeneratorActivity();
+                    }
+                }).show();
     }
 
     private void startGeneratorActivity() {
-        sendToFirebase("Open Generator");
         fromGeneration = true;
         startActivity(new Intent(MainActivity.this, GeneratorActivity.class));
     }
 
     private void showInfo() {
-        sendToFirebase("Show Info");
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Information");
-        builder.setMessage(getString(R.string.info_message));
-        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.information))
+                .setMessage(getString(R.string.info_message))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setNeutralButton("About", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.about), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                showAbout();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showAbout();
+                    }
+                }).show();
     }
 
     private void showAbout() {
-        sendToFirebase("Show About");
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("About");
-        builder.setIcon(R.drawable.se);
-        builder.setMessage(getString(R.string.about_message));
-        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.about))
+                .setIcon(R.drawable.se)
+                .setMessage(getString(R.string.about_message))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setNeutralButton("License", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.license), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                showLicenseDialog();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showLicenseDialog();
+                    }
+                }).show();
     }
 
     private void showLicenseDialog() {
-        sendToFirebase("Show License");
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Script License");
-        builder.setMessage(getText(R.string.license));
-        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.script_license))
+                .setMessage(getText(R.string.license_script))
+                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(getString(R.string.privacy_policy_title), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+                    }
+                }).show();
     }
 
-    private boolean acceptedPP() {
-        SharedPreferences prefs = getSharedPreferences("accepted", MODE_PRIVATE);
-        return prefs.getBoolean("acceptedPP", false);
+    private boolean notAcceptedPP() {
+        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        return !prefs.getBoolean(PREF_ACCEPTED, false);
     }
 
     private void setAcceptedPP(boolean accepted) {
-        SharedPreferences.Editor editor = getSharedPreferences("accepted", MODE_PRIVATE).edit();
-        editor.putBoolean("acceptedPP", accepted);
+        SharedPreferences.Editor editor = getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(PREF_ACCEPTED, accepted);
         editor.apply();
     }
 
     private void displayPrivacyPolicyNotification() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Privacy Policy");
-        builder.setMessage(getString(R.string.privacy_policy_message));
-        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                setAcceptedPP(true);
-            }
-        });
-        builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                setAcceptedPP(false);
-                finish();
-            }
-        });
-        builder.setNeutralButton("Read it", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                final Uri uri = Uri.parse("https://arctosoft.com/products/how-secure-is-my-password/privacy-policy/");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-        builder.setCancelable(false);
-        privacyBuilder = builder.create();
-        privacyBuilder.show();
-    }
-
-    private void sendToFirebase(String btnPressed) {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, btnPressed);
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        privacyBuilder = new AlertDialog.Builder(MainActivity.this)
+                .setTitle(getString(R.string.privacy_policy_title))
+                .setMessage(getString(R.string.privacy_policy_message))
+                .setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        setAcceptedPP(true);
+                    }
+                })
+                .setNegativeButton(getString(R.string.decline), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        setAcceptedPP(false);
+                        finish();
+                    }
+                })
+                .setNeutralButton(getString(R.string.read_it), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 
     @Override
     public void onResume() {
-        if (privacyBuilder != null && !acceptedPP() && !privacyBuilder.isShowing()) {
+        if (privacyBuilder != null && notAcceptedPP() && !privacyBuilder.isShowing()) {
             displayPrivacyPolicyNotification();
         }
         if (fromGeneration) {
@@ -253,6 +232,11 @@ public class MainActivity extends AppCompatActivity {
         if (snackbarBackPressed != null && snackbarBackPressed.isShownOrQueued()) {
             finish();
         } else {
+            snackbarBackPressed = Snackbar.make(btnTips, getString(R.string.back_button_message), 2000);
+            View snackBarView = snackbarBackPressed.getView();
+            snackBarView.setBackgroundColor(Color.RED);
+            TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
             snackbarBackPressed = Snackbar.make(btnTips, "Press the back button again to exit!", 2000);
             snackbarBackPressed.show();
         }

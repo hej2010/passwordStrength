@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/star"
+        android:shortcutId="generator"
+        android:shortcutLongLabel="@string/generator_shortcut_long_label"
+        android:shortcutShortLabel="@string/generator_shortcut_short_label"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="se.swecookie.passwordstrength.GeneratorActivity"
+            android:targetPackage="se.swecookie.passwordstrength" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list determines what the user sees when
+             they launch this shortcut. -->
+        <!--<categories android:name="android.shortcut.generator" />-->
+    </shortcut>
+    <!-- Specify more shortcuts here. -->
+</shortcuts><!--https://developer.android.com/guide/topics/ui/shortcuts/creating-shortcuts-->
