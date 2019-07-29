@@ -4,37 +4,34 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.net.Uri;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
-    private AlertDialog privacyBuilder;
+    private static final String PATH_TO_FILE = "file:///android_asset/index.html";
+
     private InterstitialAd mInterstitialAd;
     private Snackbar snackbarBackPressed;
     private Button btnTips;
 
     private int nrOfResumes = 0;
     private boolean fromGeneration = false;
-
-    private static final String PREF_NAME = "accepted";
-    private static final String PREF_ACCEPTED = "acceptedPP";
-    private static final String PATH_TO_FILE = "file:///android_asset/index.html";
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnTips = findViewById(R.id.btnTips);
 
-        loadWebView();
-
-        loadAds();
-
-        if (notAcceptedPP()) {
-            displayPrivacyPolicyNotification();
+        preferences = new Preferences(this);
+        if (preferences.isAcceptedPP()) {
+            loadWebView();
+            loadAds();
+        } else {
+            finish();
+            startActivity(new Intent(this, LauncherActivity.class));
+            overridePendingTransition(0, 0);
         }
     }
 
@@ -58,7 +57,11 @@ public class MainActivity extends AppCompatActivity {
         AdView mAdView = findViewById(R.id.adView);
         AdRequest.Builder adRequest = new AdRequest.Builder();
 
-        mAdView.loadAd(adRequest.build());
+        Bundle extras = new Bundle();
+        extras.putBoolean("tag_for_under_age_of_consent", preferences.isInEUAndUnderAgeOfConsent());
+        extras.putString("max_ad_content_rating", preferences.isUnder18() ? "T" : "MA");
+
+        mAdView.loadAd(adRequest.addNetworkExtrasBundle(AdMobAdapter.class, extras).build());
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(Constants.interstitialAdID);
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         webView.loadUrl(PATH_TO_FILE);
     }
 
-    public void onButtonClicked(View view) {
+    public void onButtonClicked(@NonNull View view) {
         switch (view.getId()) {
             case R.id.btnTips:
                 showTips();
@@ -171,52 +174,15 @@ public class MainActivity extends AppCompatActivity {
                 .setNeutralButton(getString(R.string.privacy_policy_title), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+                        preferences.setPreferences(false, false, false);
+                        finish();
+                        startActivity(new Intent(MainActivity.this, LauncherActivity.class));
                     }
                 }).show();
     }
 
-    private boolean notAcceptedPP() {
-        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        return !prefs.getBoolean(PREF_ACCEPTED, false);
-    }
-
-    private void setAcceptedPP(boolean accepted) {
-        SharedPreferences.Editor editor = getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit();
-        editor.putBoolean(PREF_ACCEPTED, accepted);
-        editor.apply();
-    }
-
-    private void displayPrivacyPolicyNotification() {
-        privacyBuilder = new AlertDialog.Builder(MainActivity.this)
-                .setTitle(getString(R.string.privacy_policy_title))
-                .setMessage(getString(R.string.privacy_policy_message))
-                .setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        setAcceptedPP(true);
-                    }
-                })
-                .setNegativeButton(getString(R.string.decline), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        setAcceptedPP(false);
-                        finish();
-                    }
-                })
-                .setNeutralButton(getString(R.string.read_it), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
-                    }
-                })
-                .setCancelable(false)
-                .show();
-    }
-
     @Override
     public void onResume() {
-        if (privacyBuilder != null && notAcceptedPP() && !privacyBuilder.isShowing()) {
-            displayPrivacyPolicyNotification();
-        }
         if (fromGeneration) {
             if (mInterstitialAd.isLoaded() && nrOfResumes % 2 == 0) {
                 mInterstitialAd.show();
@@ -235,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             snackbarBackPressed = Snackbar.make(btnTips, getString(R.string.back_button_message), 2000);
             View snackBarView = snackbarBackPressed.getView();
             snackBarView.setBackgroundColor(Color.RED);
-            TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = snackBarView.findViewById(com.google.android.material.R.id.snackbar_text);
             textView.setTextColor(Color.WHITE);
             snackbarBackPressed = Snackbar.make(btnTips, "Press the back button again to exit!", 2000);
             snackbarBackPressed.show();

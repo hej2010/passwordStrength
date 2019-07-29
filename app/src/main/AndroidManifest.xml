@@ -12,12 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-2831297200743176~9657558447" />
-
         <activity
-            android:name=".MainActivity"
+            android:name=".LauncherActivity"
             android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,11 +24,17 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2831297200743176~9657558447" />
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="screenSize|orientation">
+        </activity>
         <activity
             android:name=".GeneratorActivity"
-            android:configChanges="screenSize|orientation" />
-        <activity
-            android:name=".PrivacyPolicyActivity"
             android:configChanges="screenSize|orientation" />
     </application>
 

@@ -3,6 +3,7 @@ package se.swecookie.passwordstrength;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -31,16 +33,25 @@ public class GeneratorActivity extends AppCompatActivity {
     private CheckBox cBLowerCase, cBUpperCase, cBNumbers, cBSpecialChar;
     private LinearLayout lLAdvancedOptions;
 
+    private Preferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
 
-        loadAds();
+        preferences = new Preferences(this);
+        if (preferences.isAcceptedPP()) {
+            loadAds();
 
-        initLayout();
+            initLayout();
 
-        onBtnGenerateClicked();
+            onBtnGenerateClicked();
+        } else {
+            finish();
+            startActivity(new Intent(this, LauncherActivity.class));
+            overridePendingTransition(0, 0);
+        }
     }
 
     private void initLayout() {
@@ -169,8 +180,15 @@ public class GeneratorActivity extends AppCompatActivity {
         MobileAds.initialize(this, Constants.bannerAdID);
 
         AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        AdRequest.Builder adRequest = new AdRequest.Builder();
+
+        Bundle extras = new Bundle();
+        extras.putBoolean("tag_for_under_age_of_consent", preferences.isInEUAndUnderAgeOfConsent());
+        extras.putString("max_ad_content_rating", preferences.isUnder18() ? "T" : "MA");
+
+        mAdView.loadAd(adRequest.addNetworkExtrasBundle(AdMobAdapter.class, extras).build());
+
+        mAdView.loadAd(adRequest.build());
     }
 
     private void onBtnGenerateClicked() {
