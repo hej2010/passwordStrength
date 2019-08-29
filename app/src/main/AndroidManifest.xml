@@ -28,11 +28,13 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2831297200743176~9657558447" />
+        <meta-data
+            android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT"
+            android:value="true" />
 
         <activity
             android:name=".MainActivity"
-            android:configChanges="screenSize|orientation">
-        </activity>
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name=".GeneratorActivity"
             android:configChanges="screenSize|orientation" />

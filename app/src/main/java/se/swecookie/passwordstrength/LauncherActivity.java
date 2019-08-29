@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LauncherActivity extends AppCompatActivity {
-    private CheckBox cBEU, cBUnderAge;
+    private CheckBox cBPersonalisedAds;
     private Button btnAccept;
     private Preferences preferences;
 
@@ -21,24 +21,14 @@ public class LauncherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launcher);
 
         CheckBox cBAgree = findViewById(R.id.cBAgree);
-        cBEU = findViewById(R.id.cBEU);
-        cBUnderAge = findViewById(R.id.cBUnderAge);
         btnAccept = findViewById(R.id.btnAccept);
+        cBPersonalisedAds = findViewById(R.id.cBPersonalisedAds);
         preferences = new Preferences(this);
 
         cBAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 btnAccept.setEnabled(isChecked);
-            }
-        });
-        cBEU.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                cBUnderAge.setEnabled(!isChecked);
-                if (isChecked) {
-                    cBUnderAge.setChecked(true);
-                }
             }
         });
         if (preferences.isAcceptedPP()) {
@@ -58,7 +48,7 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     private void onAccept() {
-        preferences.setPreferences(true, cBEU.isChecked(), cBUnderAge.isChecked());
+        preferences.setAccepted(true, cBPersonalisedAds.isChecked());
         onFinish();
     }
 

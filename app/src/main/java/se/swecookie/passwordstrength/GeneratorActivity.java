@@ -183,8 +183,9 @@ public class GeneratorActivity extends AppCompatActivity {
         AdRequest.Builder adRequest = new AdRequest.Builder();
 
         Bundle extras = new Bundle();
-        extras.putBoolean("tag_for_under_age_of_consent", preferences.isInEUAndUnderAgeOfConsent());
-        extras.putString("max_ad_content_rating", preferences.isUnder18() ? "T" : "MA");
+        if (preferences.noPersonalisedAds()) {
+            extras.putString("npa", "1");
+        }
 
         mAdView.loadAd(adRequest.addNetworkExtrasBundle(AdMobAdapter.class, extras).build());
 
