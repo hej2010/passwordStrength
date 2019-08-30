@@ -1,12 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorWebViewBG"
     android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_above="@id/adView"
+        android:layout_alignParentTop="true"
+        android:layout_height="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -197,8 +199,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:visibility="visible"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
     <!--TEST: ca-app-pub-3940256099942544/6300978111-->

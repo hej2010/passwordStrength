@@ -2,7 +2,6 @@ package se.swecookie.passwordstrength;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,24 +13,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
+
+import se.swecookie.passwordsstrength.MainActivityExtended;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PATH_TO_FILE = "file:///android_asset/index.html";
 
-    private InterstitialAd mInterstitialAd;
     private Snackbar snackbarBackPressed;
     private Button btnTips;
 
     private int nrOfResumes = 0;
     private boolean fromGeneration = false;
     private Preferences preferences;
+    private MainFlavour mainFlavour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,43 +35,18 @@ public class MainActivity extends AppCompatActivity {
 
         btnTips = findViewById(R.id.btnTips);
 
+        mainFlavour = new MainActivityExtended();
         preferences = new Preferences(this);
-        if (preferences.isAcceptedPP()) {
-            loadWebView();
-            loadAds();
-        } else {
-            finish();
-            startActivity(new Intent(this, LauncherActivity.class));
-            overridePendingTransition(0, 0);
-        }
-    }
-
-    private void loadAds() {
-        MobileAds.initialize(this, Constants.admobAppID);
-
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest.Builder adRequest = new AdRequest.Builder();
-
-        Bundle extras = new Bundle();
-        if (preferences.noPersonalisedAds()) {
-            extras.putString("npa", "1");
-        }
-
-        mAdView.loadAd(adRequest.addNetworkExtrasBundle(AdMobAdapter.class, extras).build());
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(Constants.interstitialAdID);
-        mInterstitialAd.loadAd(adRequest.build());
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load new ad
-                AdRequest.Builder adRequest = new AdRequest.Builder();
-                mInterstitialAd.loadAd(adRequest.build());
-                super.onAdClosed();
+        if (BuildConfig.FREE_VERSION) {
+            if (preferences.isAcceptedPP()) {
+                loadWebView();
+                mainFlavour.loadAds(this, preferences);
+            } else {
+                finish();
+                mainFlavour.openLauncher(this);
+                overridePendingTransition(0, 0);
             }
-        });
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -98,24 +68,15 @@ public class MainActivity extends AppCompatActivity {
                 startGeneratorActivity();
                 break;
         }
+        mainFlavour.onButtonClicked(view, MainActivity.this);
     }
 
     private void showTips() {
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(getString(R.string.password_tips))
                 .setMessage(getText(R.string.tips_message))
-                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setNeutralButton(getString(R.string.generator), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        startGeneratorActivity();
-                    }
-                }).show();
+                .setPositiveButton(getString(R.string.close), null)
+                .setNeutralButton(getString(R.string.generator), (dialog, which) -> startGeneratorActivity()).show();
     }
 
     private void startGeneratorActivity() {
@@ -127,19 +88,8 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(getString(R.string.information))
                 .setMessage(getString(R.string.info_message))
-                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setNeutralButton(getString(R.string.about), new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        showAbout();
-                    }
-                }).show();
+                .setPositiveButton(getString(R.string.close), null)
+                .setNeutralButton(getString(R.string.about), (dialog, which) -> showAbout()).show();
     }
 
     private void showAbout() {
@@ -147,18 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle(getString(R.string.about))
                 .setIcon(R.drawable.se)
                 .setMessage(getString(R.string.about_message))
-                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setNeutralButton(getString(R.string.license), new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        showLicenseDialog();
-                    }
+                .setPositiveButton(getString(R.string.close), (dialog, which) -> dialog.dismiss())
+                .setNeutralButton(getString(R.string.license), (dialog, which) -> {
+                    dialog.dismiss();
+                    showLicenseDialog();
                 }).show();
     }
 
@@ -166,28 +108,18 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(getString(R.string.script_license))
                 .setMessage(getText(R.string.license_script))
-                .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setNeutralButton(getString(R.string.privacy_policy_title), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        preferences.setAccepted(false, false);
-                        finish();
-                        startActivity(new Intent(MainActivity.this, LauncherActivity.class));
-                    }
+                .setPositiveButton(getString(R.string.close), null)
+                .setNeutralButton(getString(R.string.privacy_policy_title), (dialogInterface, i) -> {
+                    preferences.setAccepted(false, false);
+                    finish();
+                    mainFlavour.openLauncher(MainActivity.this);
                 }).show();
     }
 
     @Override
     public void onResume() {
         if (fromGeneration) {
-            if (mInterstitialAd.isLoaded() && nrOfResumes % 2 == 0) {
-                mInterstitialAd.show();
-            }
+            mainFlavour.onResume(nrOfResumes);
             nrOfResumes++;
             fromGeneration = false;
         }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HSIMP free</string>
+    <string name="privacy_policy_title">Privacy policy</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+
+    <string name="launcher_title">Welcome to How secure is my password!</string>
+    <string name="launcher_message">Please read and agree to the privacy policy in order to use the app.</string>
+    <string name="launcher_agree">I have read and agree to the Privacy Policy</string>
+    <string name="launcher_personalised_ads">Make the ads personalised</string>
+
+    <string name="main_ad_free">Remove ads</string>
+    <string name="main_remove_ads_title">Remove ads</string>
+    <string name="main_remove_ads_message">Buy the pro version to remove all ads</string>
+    <string name="main_remove_ads_open">Show in store</string>
+
+    <string name="privacy_policy_content">This Privacy Policy is available at any time from Information->About->License->Privacy Policy.\n\n
+
+    Last updated: 2019–08-07\n\n
+
+    Arctosoft (\"we\", \"us\") operate the application \"How Secure Is My Password\" (the \"app\", \"HSIMP\"). This text informs you of the policies regarding the collection, use and disclosure of Personal Information we receive from users of the App.\n\n
+
+    By using HSIMP, you agree to the collection and use of information in accordance with this policy.\n\n
+
+    <b>Information Collection And Use</b>\n
+    No personally identifiable information will be collected and/or shared while you use the App.\n
+    Collected information includes cookies and the device\'s Advertising ID. These may be shared with third parties to serve relevant ads.\n\n
+
+    <b>Purpose of Use</b>\n
+    The only purpose of the collected information is to serve relevant ads.\n\n
+
+    <b>Third Party Services &amp; Cookies</b>\n
+    We use third party services to serve ads. These include:\n\n
+
+    <b>- Cookies &amp; AdMob:</b>\n
+    We use banner &amp; interstitial ads in the app, (AdMob ads) to keep it free.\n\n
+    &#8212; Third parties, including Google, use cookies to serve ads based on the user\'s prior visits to the App and other websites.\n\n
+    &#8212; Google\'s use of advertising cookies enables it and its partners to serve ads to users of the App, based on their visit to the App and/or other sites on the Internet.\n\n
+    &#8212; Other third parties may also display ads in the App. For a full list, visit adwords-vendors <i>(https://developers.google.com/third-party-ads/adwords-vendors)</i> and adx-vendors <i>(https://developers.google.com/third-party-ads/adx-vendors)</i>.\n\n
+    &#8212; The user can opt out of personalised advertising by revoking consent by going to Information->About->License->Privacy Policy, and/or by visiting https://adssettings.google.com and/or https://aboutads.info.\n\n
+
+    <b>- Cookies</b>\n
+    Cookies are files with small amount of data, which may include an anonymous unique identifier. Cookies are sent to your device from a web site and stored on your device\'s internal storage.\n\n
+    By using the app, you agree to third-parties storing cookies on your device. If you do not agree with the usage of cookies, the app will not be usable.\n\n
+
+    <b>Changes To This Privacy Policy</b>\n
+    This Privacy Policy is effective as of 2019-08-07 and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately.\n\n
+
+    We reserve the right to update or change our Privacy Policy at any time and you should check this Privacy Policy periodically. Your continued use of the Service after we post any modifications to the Privacy Policy on this page will constitute your acknowledgement of the modifications and your consent to abide and be bound by the modified Privacy Policy.\n\n
+
+    <b>Contact Us</b>\n
+    If you have any questions about this Privacy Policy, please contact us at contact@arctosoft.com\n</string>
+</resources>

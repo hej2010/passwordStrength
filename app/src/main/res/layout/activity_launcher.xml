@@ -4,9 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorWebViewBG"
     android:padding="5dp"
     tools:context=".LauncherActivity">
+
+    <LinearLayout
+        android:id="@+id/lLButtons"
+        style="?android:buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btnDecline"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onButtonClicked"
+            android:text="@string/decline" />
+
+        <Button
+            android:id="@+id/btnAccept"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:onClick="onButtonClicked"
+            android:text="@string/accept" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -70,36 +100,5 @@
         android:alpha="0.4"
         android:background="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@id/lLButtons" />
-
-    <LinearLayout
-        android:id="@+id/lLButtons"
-        style="?android:buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <Button
-            android:id="@+id/btnDecline"
-            style="?android:buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onButtonClicked"
-            android:text="@string/decline"
-            android:textColor="@color/colorRed" />
-
-        <Button
-            android:id="@+id/btnAccept"
-            style="?android:buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:onClick="onButtonClicked"
-            android:text="@string/accept" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

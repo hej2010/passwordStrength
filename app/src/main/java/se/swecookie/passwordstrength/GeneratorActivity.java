@@ -3,13 +3,11 @@ package se.swecookie.passwordstrength;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -17,13 +15,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Random;
+
+import se.swecookie.passwordsstrength.GeneratorActivityExtended;
+import se.swecookie.passwordsstrength.MainActivityExtended;
 
 public class GeneratorActivity extends AppCompatActivity {
 
@@ -33,25 +30,26 @@ public class GeneratorActivity extends AppCompatActivity {
     private CheckBox cBLowerCase, cBUpperCase, cBNumbers, cBSpecialChar;
     private LinearLayout lLAdvancedOptions;
 
-    private Preferences preferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
 
-        preferences = new Preferences(this);
-        if (preferences.isAcceptedPP()) {
-            loadAds();
-
-            initLayout();
-
-            onBtnGenerateClicked();
-        } else {
-            finish();
-            startActivity(new Intent(this, LauncherActivity.class));
-            overridePendingTransition(0, 0);
+        MainFlavour mainFlavour = new MainActivityExtended();
+        Preferences preferences = new Preferences(this);
+        GeneratorFlavour generatorFlavour = new GeneratorActivityExtended();
+        if (BuildConfig.FREE_VERSION) {
+            if (preferences.isAcceptedPP()) {
+                generatorFlavour.loadAds(this, preferences);
+            } else {
+                finish();
+                mainFlavour.openLauncher(this);
+                overridePendingTransition(0, 0);
+                return;
+            }
         }
+        initLayout();
+        onBtnGenerateClicked();
     }
 
     private void initLayout() {
@@ -76,63 +74,48 @@ public class GeneratorActivity extends AppCompatActivity {
         cBSpecialChar.setChecked(true);
         cBShowAdvanced.setChecked(false);
 
-        cBShowAdvanced.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    lLAdvancedOptions.setVisibility(View.VISIBLE);
-                } else {
-                    lLAdvancedOptions.setVisibility(View.GONE);
-                }
+        cBShowAdvanced.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                lLAdvancedOptions.setVisibility(View.VISIBLE);
+            } else {
+                lLAdvancedOptions.setVisibility(View.GONE);
             }
         });
 
         // So that all cannot be disabled at the same time
-        cBLowerCase.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!b && !cBUpperCase.isChecked() && !cBNumbers.isChecked() && !cBSpecialChar.isChecked()) {
-                    btnGenerate.setEnabled(false);
-                }
-                if (b && passwordLength > 0) {
-                    btnGenerate.setEnabled(true);
-                }
+        cBLowerCase.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (!b && !cBUpperCase.isChecked() && !cBNumbers.isChecked() && !cBSpecialChar.isChecked()) {
+                btnGenerate.setEnabled(false);
+            }
+            if (b && passwordLength > 0) {
+                btnGenerate.setEnabled(true);
             }
         });
 
-        cBUpperCase.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!b && !cBLowerCase.isChecked() && !cBNumbers.isChecked() && !cBSpecialChar.isChecked()) {
-                    btnGenerate.setEnabled(false);
-                }
-                if (b && passwordLength > 0) {
-                    btnGenerate.setEnabled(true);
-                }
+        cBUpperCase.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (!b && !cBLowerCase.isChecked() && !cBNumbers.isChecked() && !cBSpecialChar.isChecked()) {
+                btnGenerate.setEnabled(false);
+            }
+            if (b && passwordLength > 0) {
+                btnGenerate.setEnabled(true);
             }
         });
 
-        cBNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!b && !cBUpperCase.isChecked() && !cBLowerCase.isChecked() && !cBSpecialChar.isChecked()) {
-                    btnGenerate.setEnabled(false);
-                }
-                if (b && passwordLength > 0) {
-                    btnGenerate.setEnabled(true);
-                }
+        cBNumbers.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (!b && !cBUpperCase.isChecked() && !cBLowerCase.isChecked() && !cBSpecialChar.isChecked()) {
+                btnGenerate.setEnabled(false);
+            }
+            if (b && passwordLength > 0) {
+                btnGenerate.setEnabled(true);
             }
         });
 
-        cBSpecialChar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!b && !cBUpperCase.isChecked() && !cBNumbers.isChecked() && !cBLowerCase.isChecked()) {
-                    btnGenerate.setEnabled(false);
-                }
-                if (b && passwordLength > 0) {
-                    btnGenerate.setEnabled(true);
-                }
+        cBSpecialChar.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (!b && !cBUpperCase.isChecked() && !cBNumbers.isChecked() && !cBLowerCase.isChecked()) {
+                btnGenerate.setEnabled(false);
+            }
+            if (b && passwordLength > 0) {
+                btnGenerate.setEnabled(true);
             }
         });
 
@@ -174,22 +157,6 @@ public class GeneratorActivity extends AppCompatActivity {
 
     private void updateTxtSeekbar(@NonNull SeekBar seekBar) {
         txtSeekBar.setText(getString(R.string.generator_chars, seekBar.getProgress(), seekBar.getMax()));
-    }
-
-    private void loadAds() {
-        MobileAds.initialize(this, Constants.bannerAdID);
-
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest.Builder adRequest = new AdRequest.Builder();
-
-        Bundle extras = new Bundle();
-        if (preferences.noPersonalisedAds()) {
-            extras.putString("npa", "1");
-        }
-
-        mAdView.loadAd(adRequest.addNetworkExtrasBundle(AdMobAdapter.class, extras).build());
-
-        mAdView.loadAd(adRequest.build());
     }
 
     private void onBtnGenerateClicked() {
