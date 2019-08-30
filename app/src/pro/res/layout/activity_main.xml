@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorWebViewBG"
     android:orientation="vertical">
 
     <TextView
@@ -15,96 +15,52 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/input"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:visibility="gone" />
-
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/view2"
-        android:layout_below="@+id/textView"
+        android:layout_above="@+id/lLButtons"
+        android:layout_below="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/btnGenerator"
-        android:background="@color/colorAccent" />
-
-    <Button
-        android:id="@+id/btnGenerator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/view"
-        android:backgroundTint="@android:color/holo_green_light"
-        android:onClick="onButtonClicked"
-        android:text="@string/pwd_title" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/lLButtons"
-        android:background="@color/colorAccent" />
-
     <LinearLayout
         android:id="@+id/lLButtons"
+        style="?android:buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/view3"
-        android:orientation="horizontal">
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWebViewBG"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnGenerator"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onButtonClicked"
+            android:text="@string/pwd_title" />
 
         <Button
             android:id="@+id/btnTips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_blue_light"
-            android:drawableStart="@drawable/ic_lightbulb_small2"
-            android:drawableLeft="@drawable/ic_lightbulb_small2"
-            android:drawablePadding="-24dp"
             android:onClick="onButtonClicked"
             android:text="@string/tips" />
 
         <Button
             android:id="@+id/btnInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_orange_dark"
             android:onClick="onButtonClicked"
             android:text="@string/info" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/adView"
-        android:layout_marginBottom="2dp"
-        android:background="@color/colorAccent" />
-
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:visibility="visible"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
 
 </RelativeLayout>

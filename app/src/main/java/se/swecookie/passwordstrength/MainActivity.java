@@ -15,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import se.swecookie.passwordsstrength.MainActivityExtended;
-
 public class MainActivity extends AppCompatActivity {
     private static final String PATH_TO_FILE = "file:///android_asset/index.html";
 
@@ -39,14 +37,15 @@ public class MainActivity extends AppCompatActivity {
         preferences = new Preferences(this);
         if (BuildConfig.FREE_VERSION) {
             if (preferences.isAcceptedPP()) {
-                loadWebView();
                 mainFlavour.loadAds(this, preferences);
             } else {
                 finish();
                 mainFlavour.openLauncher(this);
                 overridePendingTransition(0, 0);
+                return;
             }
         }
+        loadWebView();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -105,15 +104,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showLicenseDialog() {
-        new AlertDialog.Builder(MainActivity.this)
+        AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(getString(R.string.script_license))
                 .setMessage(getText(R.string.license_script))
-                .setPositiveButton(getString(R.string.close), null)
-                .setNeutralButton(getString(R.string.privacy_policy_title), (dialogInterface, i) -> {
-                    preferences.setAccepted(false, false);
-                    finish();
-                    mainFlavour.openLauncher(MainActivity.this);
-                }).show();
+                .setPositiveButton(getString(R.string.close), null);
+        if (BuildConfig.FREE_VERSION) {
+            b.setNeutralButton(getString(R.string.privacy_policy_title), (dialogInterface, i) -> {
+                preferences.setAccepted(false, false);
+                finish();
+                mainFlavour.openLauncher(MainActivity.this);
+            });
+        }
+        b.show();
     }
 
     @Override

@@ -1,6 +1,7 @@
 <resources>
     <string name="title">How secure is my password?</string>
-    <string name="about_message">2019 © Arctosoft\nVersion 1.6</string>
+    <string name="about_message">2019 © Arctosoft\nVersion 1.7</string>
+    <string name="privacy_policy_title">Privacy policy</string>
 
     <string name="input">Input password:</string>
     <string name="info">About</string>

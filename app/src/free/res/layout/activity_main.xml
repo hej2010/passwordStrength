@@ -5,6 +5,34 @@
     android:background="@color/colorWebViewBG"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lLButtons"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lLButtons"
+        android:background="@color/colorWebViewBG"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
+
     <LinearLayout
         android:id="@+id/lLButtons"
         style="?android:buttonBarStyle"
@@ -45,18 +73,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/input"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:visibility="gone" />
-
-    <TextView
         android:id="@+id/txtAdFree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,33 +84,5 @@
         android:text="@string/main_ad_free"
         android:textAlignment="center"
         android:textColor="@color/colorWhite" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/lLButtons"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
-
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/lLButtons"
-        android:background="@color/colorWebViewBG"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
 
 </RelativeLayout>

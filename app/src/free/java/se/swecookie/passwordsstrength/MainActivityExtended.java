@@ -18,7 +18,6 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import se.swecookie.passwordstrength.Constants;
-import se.swecookie.passwordstrength.LauncherActivity;
 import se.swecookie.passwordstrength.MainActivity;
 import se.swecookie.passwordstrength.MainFlavour;
 import se.swecookie.passwordstrength.Preferences;

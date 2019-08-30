@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HSIMP free</string>
-    <string name="privacy_policy_title">Privacy policy</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
 
