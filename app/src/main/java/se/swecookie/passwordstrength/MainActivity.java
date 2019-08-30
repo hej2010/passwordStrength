@@ -15,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import se.swecookie.passwordsstrength.MainActivityExtended;
-
 public class MainActivity extends AppCompatActivity {
     private static final String PATH_TO_FILE = "file:///android_asset/index.html";
 

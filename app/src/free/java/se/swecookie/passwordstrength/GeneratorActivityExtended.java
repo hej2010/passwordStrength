@@ -1,4 +1,4 @@
-package se.swecookie.passwordsstrength;
+package se.swecookie.passwordstrength;
 
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -8,12 +8,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-
-import se.swecookie.passwordstrength.Constants;
-import se.swecookie.passwordstrength.GeneratorActivity;
-import se.swecookie.passwordstrength.GeneratorFlavour;
-import se.swecookie.passwordstrength.Preferences;
-import se.swecookie.passwordstrength.R;
 
 public class GeneratorActivityExtended implements GeneratorFlavour {
 

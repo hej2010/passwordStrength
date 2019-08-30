@@ -19,9 +19,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Random;
 
-import se.swecookie.passwordsstrength.GeneratorActivityExtended;
-import se.swecookie.passwordsstrength.MainActivityExtended;
-
 public class GeneratorActivity extends AppCompatActivity {
 
     private TextView txtSeekBar, txtPassword, txtNotice;

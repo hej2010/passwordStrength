@@ -1,4 +1,4 @@
-package se.swecookie.passwordsstrength;
+package se.swecookie.passwordstrength;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -16,13 +16,6 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-
-import se.swecookie.passwordstrength.Constants;
-import se.swecookie.passwordstrength.LauncherActivity;
-import se.swecookie.passwordstrength.MainActivity;
-import se.swecookie.passwordstrength.MainFlavour;
-import se.swecookie.passwordstrength.Preferences;
-import se.swecookie.passwordstrength.R;
 
 public class MainActivityExtended implements MainFlavour {
     private InterstitialAd mInterstitialAd;
