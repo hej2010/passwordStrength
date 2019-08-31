@@ -81,7 +81,7 @@ public class MainActivityExtended implements MainFlavour {
         builder.setTitle(activity.getString(R.string.main_remove_ads_title));
         builder.setMessage(activity.getString(R.string.main_remove_ads_message));
         builder.setPositiveButton(activity.getString(R.string.main_remove_ads_open), (dialog, which) -> {
-            Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=se.swecookie.passwordsstrength.pro");
+            Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=se.swecookie.passwordstrength.pro");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             activity.startActivity(intent);
         });
