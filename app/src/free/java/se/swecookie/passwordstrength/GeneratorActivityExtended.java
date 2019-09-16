@@ -13,7 +13,7 @@ public class GeneratorActivityExtended implements GeneratorFlavour {
 
     @Override
     public void loadAds(GeneratorActivity activity, Preferences preferences) {
-        MobileAds.initialize(activity, Constants.bannerAdID);
+        MobileAds.initialize(activity, Constants.admobAppID);
 
         AdView mAdView = activity.findViewById(R.id.adView);
         AdRequest.Builder adRequest = new AdRequest.Builder();

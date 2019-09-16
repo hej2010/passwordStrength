@@ -39,7 +39,7 @@
         android:layout_above="@+id/lLButtons"
         android:background="@color/colorWebViewBG"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-2831297200743176/2134291646" />
+        ads:adUnitId="ca-app-pub-4450154628850316/5855203002" />
 
     <LinearLayout
         android:id="@+id/lLButtons"
