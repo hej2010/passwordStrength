@@ -20,7 +20,7 @@ import com.google.android.gms.ads.MobileAds;
 public class MainActivityExtended implements MainFlavour {
     private InterstitialAd mInterstitialAd;
 
-    public MainActivityExtended() {
+    MainActivityExtended() {
         mInterstitialAd = null;
     }
 

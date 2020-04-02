@@ -25,12 +25,7 @@ public class LauncherActivity extends AppCompatActivity {
         cBPersonalisedAds = findViewById(R.id.cBPersonalisedAds);
         preferences = new Preferences(this);
 
-        cBAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                btnAccept.setEnabled(isChecked);
-            }
-        });
+        cBAgree.setOnCheckedChangeListener((compoundButton, isChecked) -> btnAccept.setEnabled(isChecked));
         if (preferences.isAcceptedPP()) {
             onFinish();
         }

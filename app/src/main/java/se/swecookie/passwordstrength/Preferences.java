@@ -24,7 +24,7 @@ public class Preferences {
         return getBoolean(PREF_ACCEPTED);
     }
 
-    public boolean noPersonalisedAds() {
+    boolean noPersonalisedAds() {
         return getBoolean(PREF_PERSONALISED_ADS);
     }
 
