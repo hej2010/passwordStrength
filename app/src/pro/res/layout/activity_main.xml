@@ -9,6 +9,7 @@
         android:id="@+id/textView2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:text="@string/title"
         android:textAlignment="center"
         android:textColor="@android:color/holo_blue_dark"

@@ -1,6 +1,6 @@
 <resources>
     <string name="title">How secure is my password?</string>
-    <string name="about_message">2020 © Arctosoft AB\nVersion 1.9</string>
+    <string name="about_message">2020 © Arctosoft AB\nVersion 2.0</string>
     <string name="privacy_policy_title">Privacy policy</string>
 
     <string name="input">Input password:</string>
@@ -42,9 +42,10 @@
     </string>
 
     <string name="tips_message"><b>Here are some tips on how to create a strong password that\'s difficult to crack:</b>\n\n
-        - Your password should be at least 8 characters long. (16+ is recommended)\n\n
+        - Your password should be at least 8 characters long. (16+ is recommended).\n\n
     - Your password should contain lower case letters (\"a b c\"), \nupper case letters (\"A B C\"), \nnumbers (\"1 2 3\") and
-        \nspecial characters (\". % &amp; @\")
+        \nspecial characters (\". % &amp; @\").
+    \n\n- Alternatively, you can choose a password that consists of multiple words, e.g. CorrectHorseBatteryStaple1.
     \n\n- Never use the exact same password on multiple accounts/websites. If one gets hacked, all the others may be in danger.
     \n\n- Your password shouldn\'t contain words, phone numbers or other things that are associated with you, since it makes
         guessing your password easier.

@@ -3,5 +3,7 @@
 
     <dimen name="pp_title_size">24sp</dimen>
     <dimen name="pp_margin">8dp</dimen>
-
+    <dimen name="card_margin">7dp</dimen>
+    <dimen name="card_content_padding">10dp</dimen>
+    <dimen name="card_corner_radius">5dp</dimen>
 </resources>

@@ -53,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:gravity="center_horizontal"
                 android:text="@string/launcher_title"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
@@ -62,6 +63,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="@string/launcher_message"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite" />

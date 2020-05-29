@@ -13,7 +13,8 @@
         android:textAlignment="center"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center_horizontal" />
 
     <WebView
         android:id="@+id/webview"
@@ -91,6 +92,7 @@
         android:onClick="onButtonClicked"
         android:text="@string/main_ad_free"
         android:textAlignment="center"
-        android:textColor="@color/colorWhite" />
+        android:textColor="@color/colorWhite"
+        android:gravity="center_horizontal" />
 
 </RelativeLayout>
