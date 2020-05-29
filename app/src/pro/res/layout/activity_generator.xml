@@ -38,6 +38,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/card_margin"
             android:backgroundTint="@color/colorPrimaryDark2"
+            app:cardBackgroundColor="@color/colorPrimaryDark2"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:contentPadding="@dimen/card_content_padding">
 
@@ -73,7 +74,7 @@
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
@@ -85,6 +86,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/card_margin"
             android:backgroundTint="@color/colorPrimaryDark2"
+            app:cardBackgroundColor="@color/colorPrimaryDark2"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:contentPadding="@dimen/card_content_padding">
 
@@ -143,6 +145,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/card_margin"
             android:backgroundTint="@color/colorPrimaryDark2"
+            app:cardBackgroundColor="@color/colorPrimaryDark2"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:contentPadding="@dimen/card_content_padding">
 
