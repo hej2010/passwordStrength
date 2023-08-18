@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnTips = findViewById(R.id.btnTips);
 
-        mainFlavour = new MainActivityExtended();
+        mainFlavour = new MainActivityExtended(this);
         preferences = new Preferences(this);
         if (BuildConfig.FREE_VERSION) {
             if (preferences.isAcceptedPP()) {
@@ -56,16 +56,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onButtonClicked(@NonNull View view) {
-        switch (view.getId()) {
-            case R.id.btnTips:
-                showTips();
-                break;
-            case R.id.btnInfo:
-                showInfo();
-                break;
-            case R.id.btnGenerator:
-                startGeneratorActivity();
-                break;
+        int id = view.getId();
+        if (id == R.id.btnTips) {
+            showTips();
+        } else if (id == R.id.btnInfo) {
+            showInfo();
+        } else if (id == R.id.btnGenerator) {
+            startGeneratorActivity();
         }
         mainFlavour.onButtonClicked(view, MainActivity.this);
     }

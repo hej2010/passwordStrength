@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="password/app" />
-      <module fileurl="file://$PROJECT_DIR$/password.iml" filepath="$PROJECT_DIR$/password.iml" group="password" />
+      <module fileurl="file://$PROJECT_DIR$/password.iml" filepath="$PROJECT_DIR$/password.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/password.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/password.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/password.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/password.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/password.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/password.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/password.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/password.app.unitTest.iml" />
     </modules>
   </component>
 </project>

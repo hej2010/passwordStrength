@@ -32,7 +32,7 @@ public class GeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
 
-        MainFlavour mainFlavour = new MainActivityExtended();
+        MainFlavour mainFlavour = new MainActivityExtended(this);
         Preferences preferences = new Preferences(this);
         GeneratorFlavour generatorFlavour = new GeneratorActivityExtended();
         if (BuildConfig.FREE_VERSION) {

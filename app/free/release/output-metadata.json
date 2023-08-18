@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "se.swecookie.passwordstrength",
+  "variantName": "freeRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 13,
+      "versionName": "2.2",
+      "outputFile": "app-free-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

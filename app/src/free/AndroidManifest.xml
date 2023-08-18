@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="se.swecookie.passwordstrength">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -14,7 +13,8 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".LauncherActivity"
-            android:configChanges="screenSize|orientation">
+            android:configChanges="screenSize|orientation"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:configChanges="screenSize|orientation"/>
+            android:configChanges="screenSize|orientation" />
         <activity
             android:name=".GeneratorActivity"
             android:configChanges="screenSize|orientation" />

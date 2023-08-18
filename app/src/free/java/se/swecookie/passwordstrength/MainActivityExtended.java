@@ -7,26 +7,37 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.ads.mediation.admob.AdMobAdapter;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 public class MainActivityExtended implements MainFlavour {
     private InterstitialAd mInterstitialAd;
+    private final AppCompatActivity activity;
 
-    MainActivityExtended() {
+    MainActivityExtended(AppCompatActivity activity) {
         mInterstitialAd = null;
+
+        this.activity = activity;
     }
 
     @Override
     public void loadAds(MainActivity activity, Preferences preferences) {
-        MobileAds.initialize(activity, Constants.admobAppID);
+        MobileAds.initialize(activity, initializationStatus -> {
+        });
 
         AdView mAdView = activity.findViewById(R.id.adView);
         AdRequest.Builder adRequest = new AdRequest.Builder();
@@ -42,17 +53,37 @@ public class MainActivityExtended implements MainFlavour {
 
         mAdView.loadAd(adRequest.addNetworkExtrasBundle(AdMobAdapter.class, extras).build());
 
-        mInterstitialAd = new InterstitialAd(activity);
-        mInterstitialAd.setAdUnitId(Constants.interstitialAdID);
-        mInterstitialAd.loadAd(adRequest.build());
+        loadInterstitialAd(activity);
+    }
 
-        mInterstitialAd.setAdListener(new AdListener() {
+    private void loadInterstitialAd(MainActivity activity) {
+        InterstitialAd.load(activity, Constants.interstitialAdID, new AdRequest.Builder().build(), new InterstitialAdLoadCallback() {
             @Override
-            public void onAdClosed() {
-                // Load new ad
-                AdRequest.Builder adRequest = new AdRequest.Builder();
-                mInterstitialAd.loadAd(adRequest.build());
-                super.onAdClosed();
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+                super.onAdLoaded(interstitialAd);
+                mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        mInterstitialAd = null;
+                        super.onAdDismissedFullScreenContent();
+                        loadInterstitialAd(activity);
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                        super.onAdFailedToShowFullScreenContent(adError);
+                        mInterstitialAd = null;
+                        loadInterstitialAd(activity);
+                    }
+                });
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                mInterstitialAd = null;
+                loadInterstitialAd(activity);
+                super.onAdFailedToLoad(loadAdError);
             }
         });
     }
@@ -64,8 +95,8 @@ public class MainActivityExtended implements MainFlavour {
 
     @Override
     public void onResume(int nrOfResumes) {
-        if (mInterstitialAd.isLoaded() && nrOfResumes % 2 == 0) {
-            mInterstitialAd.show();
+        if (mInterstitialAd != null && nrOfResumes % 2 == 0) {
+            mInterstitialAd.show(activity);
         }
     }
 
