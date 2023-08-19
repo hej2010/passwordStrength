@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivityExtended implements MainFlavour {
 
+    public MainActivityExtended(AppCompatActivity activity) {
+
+    }
+
     @Override
     public void loadAds(MainActivity activity, Preferences preferences) {
     }

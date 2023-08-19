@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "se.swecookie.passwordstrength.pro",
+  "variantName": "proRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 13,
+      "versionName": "2.2",
+      "outputFile": "app-pro-release.apk"
+    }
+  ],
+  "elementType": "File"
+}
